@@ -113,6 +113,21 @@
   margin-left: 0.5rem;
 }
 
+@font-face {
+  font-family: "TTOctosquares-Bold";
+  src: url(/fonts/TTOctosquares-Bold.tff);
+}
+
+@font-face {
+  font-family: "TTOctosquares-Black";
+  src: url(/fonts/TTOctosquares-Black.tff);
+}
+
+@font-face {
+  font-family: "TTOctosquares-Regular";
+  src: url(/fonts/TTOctosquares-Regular.tff);
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
