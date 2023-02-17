@@ -76,10 +76,9 @@ export default function Home() {
               active:shadow-lg transition duration-150 ease-in-out
               '>
                 <div>
-                <button onClick={isConnected ? handleDisconnectWallet : handleConnectWallet}>
-  {isConnected ? `${account.substring(0, 8)}...${account.substring(account.length - 4)}` : 'Connect Wallet'}
-</button>
-
+                    <button onClick={isConnected ? handleDisconnectWallet : handleConnectWallet}>
+                          {isConnected ? `${account.substring(0, 8)}...${account.substring(account.length - 4)}` : 'Connect Wallet'}
+                    </button>
                 </div>
               </li>
             </ul>
