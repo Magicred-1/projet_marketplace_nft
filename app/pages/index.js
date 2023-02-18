@@ -1,8 +1,45 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Web3 from 'web3';
+import { Menu } from '@headlessui/react';
+import React, { useState, useEffect } from 'react';
+
+
+const web3 = new Web3(Web3.givenProvider || "http://localhost:3000", null, {});
+
 
 export default function Home() {
+
+  const [account, setAccount] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  
+
+  useEffect(() => {
+    const checkConnection = async () => {
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length > 0) {
+        setAccount(accounts[0]);
+        setIsConnected(true);
+      }
+    };
+  
+    checkConnection();
+  }, [isConnected]);
+
+  const handleConnectWallet = async () => {
+    await window.ethereum.enable();
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    setAccount(accounts[0]);
+    setIsConnected(true);
+  };
+
+  const handleDisconnectWallet = async () => {
+    await window.ethereum.request({ method: 'eth_logout' });
+    setAccount(null);
+    setIsConnected(false);
+  };
+
   return (
     <>
       <Head>
@@ -137,4 +174,5 @@ export default function Home() {
     </main>
     </>
     )
-}
+    
+  }

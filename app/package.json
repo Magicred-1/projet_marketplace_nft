@@ -9,16 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@headlessui/react": "^1.7.11",
     "alchemy-sdk": "^2.4.3",
->>>>>>> a040fad (keys updated and alchemy installed correctly)
     "daisyui": "^2.50.1",
     "dotenv": "^16.0.3",
     "next": "13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "web3": "^1.8.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
