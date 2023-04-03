@@ -60,7 +60,7 @@ const Homepage = () => {
 
           <div className="flex-1 max-w-[75.81rem] mx-auto overflow-hidden flex flex-col py-4 px-2 box-border items-center justify-start gap-5">
             <div className="self-stretch flex-1 flex flex-row items-center justify-center">
-              <div className="flex-1 relative leading-15 text-shadow:4px_4px_4px_#796565">
+              <div className="[text-shadow:2px_2px_0px_#796565] flex-1 relative leading-15">
                 <p className="m-0">Your NFT auction</p>
                 <p className="m-0">Marketplace platform</p>
                 <p className="m-0">on Ethereum.</p>
