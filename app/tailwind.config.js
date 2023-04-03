@@ -1,20 +1,25 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-    mode: 'jit',
-    purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-    darkMode: false, // or 'media' or 'class'
-    theme: {
-      extend: {
-        backgroundImage: {
-          'index': 'url(/images/index.jpg)',
-        }
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        midnightblue: "#281156",
+        white: "#fff",
+        deeppink: { "100": "#ff0f7b", "200": "#ff0099" },
+        gray: "#000123",
+        black: "#000",
       },
       fontFamily: {
-        main_text: ['TTOctosquares-Regular', 'sans-serif'],
-        main_title: ['TTOctosquares-Bold', 'sans-serif'],
+        "ttoctosquares-regular": "TTOctosquares-Regular",
+        "ttoctosquares-black": "TTOctosquares-Black",
+      },
+      borderRadius: { xl: "20px", "11xl": "30px", "31xl": "50px" },
     },
-    variants: {
-      extend: {},
-    },
-    plugins: [require("daisyui")],
-  }
-}
+    fontSize: { xl: "1.25rem", "2xl": "1.31rem", "41xl": "3.75rem" },
+  },
+  corePlugins: { preflight: false },
+};
