@@ -85,7 +85,7 @@ const Homepage = () => {
       </main>
       <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
         <div className="w-[75.88rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem]">
-          <div className="self-stretch flex-1 relative text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000]">
+          <div className="self-stretch flex-1 relative text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
             <span className="[line-break:anywhere]">
               <p className="m-0">{`Buy NFTS at `}</p>
               <p className="m-0 text-deeppink-200">Digital Delirium</p>
