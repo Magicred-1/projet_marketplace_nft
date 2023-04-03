@@ -33,7 +33,7 @@ const Homepage = () => {
 
   return (
     <main className="relative w-full flex flex-col items-center justify-center text-center text-[1.31rem] text-white font-ttoctosquares-regular">
-      <main className="self-stretch h-[31.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
+      <main className="self-stretch h-[36.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
 
        <div class="relative w-full h-screen bg-cover bg-center relative z-10">
         
@@ -58,7 +58,7 @@ const Homepage = () => {
             </div>
           </header>
 
-          <div className="flex-1 max-w-[75.81rem] mx-auto overflow-hidden flex flex-col py-4 px-2 box-border items-center justify-start gap-5">
+          <div className="flex-1 max-w-[75.81rem] mx-auto overflow-hidden flex flex-col py-4 px-2 box-border items-center justify-start gap-5 mt-20">
             <div className="self-stretch flex-1 flex flex-row items-center justify-center">
               <div className="[text-shadow:2px_2px_0px_#796565] flex-1 relative leading-15">
                 <p className="m-0">Your NFT auction</p>
@@ -78,8 +78,8 @@ const Homepage = () => {
             </div>
           </button>
         </div>
-    </div>
-</div>
+          </div>
+      </div>
 
         </div>
       </main>
