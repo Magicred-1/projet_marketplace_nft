@@ -83,9 +83,11 @@ const Homepage = () => {
 
         </div>
       </main>
-      <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
-        <div className="w-[75.88rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem]">
-          <div className="self-stretch flex-1 relative text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
+      <div className=" bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
+        <div className="w-[90.00rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem]">
+         
+         
+          <div className="relative text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
             <span className="[line-break:anywhere]">
               <p className="m-0">{`Buy NFTS at `}</p>
               <p className="m-0 text-deeppink-200">Digital Delirium</p>
@@ -95,7 +97,6 @@ const Homepage = () => {
             <p className="m-0">
               Unleash the power of NFTs with Digital Delirium!
             </p>
-            <p className="m-0">&nbsp;</p>
             <p className="m-0">
               Our Ethereum-based platform is the ultimate destination for
             </p>
@@ -106,6 +107,8 @@ const Homepage = () => {
             </p>
             <p className="m-0"> assets like never before.</p>
           </div>
+          
+          
           <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-[25.38rem] items-center justify-center text-deeppink-200">
             <div className="w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
               <div className="relative leading-[1.56rem] flex items-center justify-center w-[48.75rem]">
@@ -124,7 +127,7 @@ const Homepage = () => {
             <img
               className="absolute top-[1.13rem] left-[9rem] rounded-[5px] w-[18.63rem] h-[18.63rem] object-cover"
               alt=""
-              src="/illustration@2x.png"
+              src="./images/illustration.png"
             />
             <button className="cursor-pointer p-[0.63rem] bg-deeppink-100 absolute top-[14.81rem] left-[38.56rem] rounded-11xl box-border w-[18.81rem] h-[3.25rem] overflow-hidden flex flex-row items-start justify-start gap-[0.63rem] border-[1px] border-solid border-black">
               <div className="self-stretch relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-center flex items-center justify-center w-[15rem] shrink-0">
@@ -205,7 +208,7 @@ const Homepage = () => {
           <img
             className="relative w-[85.25rem] h-[24.38rem] shrink-0 object-cover"
             alt=""
-            src="/magicred1-background-vaporwave-office-7b216e87ceac43ba86aad42b706047e4-1@2x.png"
+            src="/images/imagefooter.png"
           />
           <div className="w-[75.63rem] h-[3.69rem] shrink-0 flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-end gap-[0.63rem]">
