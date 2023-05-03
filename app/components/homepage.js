@@ -86,72 +86,42 @@ const Homepage = () => {
 
 
 
-      <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
-        <div className="self-stretch w-[90.00rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem]">
-          <div className="relative text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
-            <span className="[line-break:anywhere]">
-              <p className="m-0">{`Buy NFTS at `}</p>
-              <p className="m-0 text-deeppink-200">Digital Delirium</p>
-            </span>
-          </div>
-          <div className="self-stretch relative leading-[1.56rem]">
-            <p className="m-0">
-              Unleash the power of NFTs with Digital Delirium!
-            </p>
-            <p className="m-0">
-              Our Ethereum-based platform is the ultimate destination for
-            </p>
-            <p className="m-0">{`NFT enthusiasts, collectors and investors. `}</p>
-            <p className="m-0">
-              Our user-friendly interface allows you to easily discover and bid
-              on unique digital
-            </p>
-            <p className="m-0"> assets like never before.</p>
-          </div>
-          
-          
-          <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-[25.38rem] items-center justify-center text-deeppink-200">
-            <div className="w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
-              <div className="relative leading-[1.56rem] flex items-center justify-center w-[48.75rem]">
-                OUR FEATURED NFT COLLECTION
-              </div>
-              <img
-                className=""
-                alt=""
-                src="/images/arrow-2.png"
-              />
+  <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
+    <div className="self-stretch w-full md:w-[90.00rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem] px-4">
+        <div className="relative text-3xl md:text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
+          <span className="[line-break:anywhere]">
+            <p className="m-0">{`Buy NFTS at `}</p>
+            <p className="m-0 text-deeppink-200">Digital Delirium</p>
+          </span>
+        </div>
+        <div className="self-stretch relative leading-[1.56rem] text-sm md:text-base">
+          <p className="m-0">
+            Unleash the power of NFTs with Digital Delirium!
+          </p>
+          <p className="m-0">
+            Our Ethereum-based platform is the ultimate destination for
+          </p>
+          <p className="m-0">{`NFT enthusiasts, collectors and investors. `}</p>
+          <p className="m-0">
+            Our user-friendly interface allows you to easily discover and bid
+            on unique digital
+          </p>
+          <p className="m-0"> assets like never before.</p>
+        </div>
+        
+        <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-4 md:px-[25.38rem] items-center justify-center text-deeppink-200">
+          <div className="w-full md:w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
+            <div className="relative leading-[1.56rem] flex items-center justify-center w-full md:w-[48.75rem] text-center">
+              OUR FEATURED NFT COLLECTION
             </div>
+            <img
+              className=""
+              alt=""
+              src="/images/arrow-2.png"
+            />
           </div>
-        </div>
-
-
-        <div className="self-stretch bg-black h-screen flex flex-col items-start justify-start gap-4 sm:gap-8">
-  <div className="self-stretch w-full h-full overflow-hidden flex flex-col items-center justify-center gap-4 sm:gap-8 px-4 sm:px-8">
-    <div className="[text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] relative text-3xl sm:text-4xl md:text-5xl leading-tight sm:leading-tight flex items-center justify-center sm:justify-start text-shadow-lg font-bold text-center text-white sm:text-shadow-none">
-      <p className="m-0">Buy NFTS at</p>
-      <p className="pl-2 m-0 text-deeppink-200">Digital Delirium</p>
-    </div>
-    <div className="self-stretch relative leading-6 sm:leading-8 text-white text-center sm:text-left">
-      <p className="m-0">
-        Unleash the power of NFTs with Digital Delirium!
-      </p>
-      <p className="m-0">
-        Our Ethereum-based platform is the ultimate destination for NFT enthusiasts, collectors and investors.
-      </p>
-      <p className="m-0">
-        Our user-friendly interface allows you to easily discover and bid on unique digital assets like never before.
-      </p>
-    </div>
-    <div className="self-stretch overflow-hidden flex flex-col py-4 sm:py-8 px-4 sm:px-8 items-center justify-center text-white">
-      <div className="w-full max-w-3xl flex flex-col items-center justify-center gap-2 sm:gap-4">
-        <div className="relative leading-6 sm:leading-8 flex items-center justify-center sm:justify-start w-full ">
-          OUR FEATURED NFT COLLECTION
-        </div>
-        <img className="" alt="" src="/images/arrow-2.png" />
       </div>
     </div>
-  </div>
-</div>
 
 
 
