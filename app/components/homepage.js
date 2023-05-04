@@ -84,7 +84,7 @@ const Homepage = () => {
         </div>
       </main>
 
-
+{/*block 2*/}
 
   <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
     <div className="self-stretch w-full md:w-[90.00rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem] px-4">
@@ -123,8 +123,10 @@ const Homepage = () => {
       </div>
     </div>
 
+{/*block 2 END*/}
 
 
+ {/*block 3*/}
         <div className="w-[75.88rem] h-[21.69rem] shrink-0 overflow-hidden flex flex-row py-[0.81rem] px-[3.88rem] box-border items-center justify-center text-deeppink-200">
           <div className="flex-1 relative h-[20.88rem] overflow-hidden">
             <img
@@ -157,6 +159,11 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+
+      {/*block 3 END*/}
+
+
+      {/*block 4*/}
       <main className="self-stretch bg-gray h-[32.81rem] shrink-0 flex flex-col items-start justify-start text-center text-[3.75rem] text-white font-ttoctosquares-regular">
         <div className="self-stretch h-[32.81rem] shrink-0 overflow-hidden flex flex-col py-[2.31rem] px-[13.25rem] box-border items-center justify-center gap-[6.06rem]">
           <div className="self-stretch flex flex-col items-center justify-center gap-[1.88rem]">
@@ -206,6 +213,11 @@ const Homepage = () => {
           </div>
         </div>
       </main>
+
+      {/*block 4 END*/}
+
+
+      {/*block 5*/}
       <main className="self-stretch bg-midnightblue box-border h-[33.06rem] shrink-0 flex flex-col items-center justify-start border-[2px] border-solid border-white">
         <div className="self-stretch h-[32.81rem] shrink-0 overflow-hidden flex flex-col py-[0rem] px-[13.25rem] box-border items-center justify-start gap-[1.06rem]">
           <img
@@ -242,7 +254,8 @@ const Homepage = () => {
         </div>
       </main>
     </main>
+   
   );
 };
-
+ {/*block 5 END*/}
 export default Homepage;
