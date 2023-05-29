@@ -36,7 +36,7 @@ const Homepage = () => {
       <main className="self-stretch h-[36.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
 
        <div class="relative w-full h-screen bg-cover bg-center relative z-10">
-        
+
           <header class="w-full py-4 px-6 bg-gray-100">
             <img className="w-full object-contain absolute inset-0 w-full h-full object-cover z-0" src="/images/background.png" alt=""/>
             <div class="mx-auto flex justify-between items-center max-w-6xl">
@@ -66,7 +66,7 @@ const Homepage = () => {
                 <p className="m-0">on Ethereum.</p>
               </div>
             </div>
-          
+
           <div className="self-stretch flex flex-col items-center justify-center">
           <div className="relative z-10">
           <button className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black">
@@ -86,8 +86,8 @@ const Homepage = () => {
 
 {/*block 2*/}
 
-  <div className="self-stretch bg-black h-[63.88rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
-    <div className="self-stretch w-full md:w-[90.00rem] h-[41.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem] px-4">
+  <div className="self-stretch bg-black h-[70rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
+    <div className="self-stretch w-full md:w-[90.00rem] h-[35.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem] px-4">
         <div className="relative text-3xl md:text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
           <span className="[line-break:anywhere]">
             <p className="m-0">{`Buy NFTS at `}</p>
@@ -108,7 +108,7 @@ const Homepage = () => {
           </p>
           <p className="m-0"> assets like never before.</p>
         </div>
-        
+
         <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-4 md:px-[25.38rem] items-center justify-center text-deeppink-200">
           <div className="w-full md:w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
             <div className="relative leading-[1.56rem] flex items-center justify-center w-full md:w-[48.75rem] text-center">
@@ -127,40 +127,39 @@ const Homepage = () => {
 
 
  {/*block 3*/}
-        <div className="w-[75.88rem] h-[21.69rem] shrink-0 overflow-hidden flex flex-row py-[0.81rem] px-[3.88rem] box-border items-center justify-center text-deeppink-200">
-          <div className="flex-1 relative h-[20.88rem] overflow-hidden">
-            <img
-              className="absolute top-[1.13rem] left-[9rem] rounded-[5px] w-[18.63rem] h-[18.63rem] object-cover"
-              alt=""
-              src="./images/illustration.png"
-            />
-            <button className="cursor-pointer p-[0.63rem] bg-deeppink-100 absolute top-[14.81rem] left-[38.56rem] rounded-11xl box-border w-[18.81rem] h-[3.25rem] overflow-hidden flex flex-row items-start justify-start gap-[0.63rem] border-[1px] border-solid border-black">
-              <div className="self-stretch relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-center flex items-center justify-center w-[15rem] shrink-0">
-                SEE COLLECTION
-              </div>
-              <div className="rounded-31xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] w-[2rem] h-[1.88rem] shrink-0 overflow-hidden flex flex-row p-[0.63rem] box-border items-center justify-center">
-                <img
-                  className="relative w-[1.41rem] h-[1.38rem] shrink-0"
-                  alt=""
-                  src="/arrow-11.svg"
-                />
-              </div>
-            </button>
-            <div className="absolute top-[2rem] left-[36.44rem] flex flex-col items-start justify-start gap-[1.44rem]">
-              <div className="relative leading-[1.56rem] flex items-center justify-center w-[25.81rem]">
-                VAPORWAVE NFTS COLLECTION
-              </div>
-              <div className="relative leading-[1.56rem] text-white text-left flex items-center w-[25.81rem]">
-                Vaporwave is a subculture that emerged in the early 2010s,
-                characterized by a nostalgic fascination with the cultural
-                aesthetics of the 1980s and 1990s.
-              </div>
+    <div className="w-full lg:w-[100rem] h-[27rem] shrink-0 overflow-hidden flex flex-col lg:flex-row   box-border items-center justify-center text-deeppink-200">
+      <div className="flex-1 lg:w-[50%] h-[20.88rem] overflow-hidden flex items-center justify-center">
+        <img
+            className="w-[18.63rem] h-[18.63rem] object-cover rounded-[5px]"
+            alt=""
+            src="./images/illustration.png"
+        />
+      </div>
+      <div className="flex-1 flex flex-col lg:items-start lg:justify-start gap-[1.44rem] bg-gray-500 lg:pl-4">
+        <div className="relative leading-[1.56rem] text-center lg:text-left mt-10">
+          VAPORWAVE NFTS COLLECTION
+        </div>
+
+        <div className="relative leading-[1.56rem] text-white text-center lg:text-left max-w-[25.81rem] ">
+          Vaporwave is a subculture that emerged in the early 2010s,
+          characterized by a nostalgic fascination with the cultural
+          aesthetics of the 1980s and 1990s.
+        </div>
+
+        <div className="flex items-center justify-center">
+          <button className="cursor-pointer p-[0.63rem] bg-deeppink-100 rounded-11xl box-border w-[18.81rem] h-[3.25rem] overflow-hidden flex flex-row items-start justify-start gap-[0.63rem] border-[1px] border-solid border-black">
+            <div className="self-stretch relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-center flex items-center justify-center w-[15rem] shrink-0">
+              SEE COLLECTION
             </div>
-          </div>
+            <div className="rounded-31xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] w-[2rem] h-[1.88rem] shrink-0 overflow-hidden flex flex-row p-[0.63rem] box-border items-center justify-center">
+              <img className="relative w-[1.41rem] h-[1.38rem] shrink-0" alt="" src="/images/arrawdroit.png" />
+            </div>
+          </button>
         </div>
       </div>
-
-      {/*block 3 END*/}
+    </div>
+  </div>
+    {/*block 3 END*/}
 
 
       {/*block 4*/}
@@ -254,7 +253,7 @@ const Homepage = () => {
         </div>
       </main>
     </main>
-   
+
   );
 };
  {/*block 5 END*/}
