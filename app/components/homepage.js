@@ -87,7 +87,7 @@ const Homepage = () => {
 {/*block 2*/}
 
   <div className="self-stretch bg-black h-[70rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
-    <div className="self-stretch w-full md:w-[90.00rem] h-[35.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[1.13rem] px-4">
+    <div className="self-stretch w-full md:w-[90.00rem] h-[40.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[5rem]  mt-2.5">
         <div className="relative text-3xl md:text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
           <span className="[line-break:anywhere]">
             <p className="m-0">{`Buy NFTS at `}</p>
@@ -109,25 +109,26 @@ const Homepage = () => {
           <p className="m-0"> assets like never before.</p>
         </div>
 
-        <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-4 md:px-[25.38rem] items-center justify-center text-deeppink-200">
-          <div className="w-full md:w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
-            <div className="relative leading-[1.56rem] flex items-center justify-center w-full md:w-[48.75rem] text-center">
-              OUR FEATURED NFT COLLECTION
-            </div>
-            <img
-              className=""
+      <div className="self-stretch overflow-hidden flex flex-col py-[2.69rem] px-4 md:px-[25.38rem] items-center justify-center text-deeppink-200">
+        <div className="w-full md:w-[42.88rem] flex flex-col items-center justify-center gap-[0.25rem]">
+          <div className="titulo relative leading-[1.56rem] flex items-center justify-center w-full md:w-[48.75rem] text-center text-4xl">
+            OUR FEATURED NFT COLLECTION
+          </div>
+          <img
+              className="w-29 h-29 object-cover rounded-[5px]"
               alt=""
               src="/images/arrow-2.png"
-            />
-          </div>
+          />
+        </div>
       </div>
+
     </div>
 
 {/*block 2 END*/}
 
 
  {/*block 3*/}
-    <div className="w-full lg:w-[100rem] h-[27rem] shrink-0 overflow-hidden flex flex-col lg:flex-row   box-border items-center justify-center text-deeppink-200">
+    <div className="w-full h-[27rem] shrink-0 overflow-hidden flex flex-col lg:flex-row   box-border items-center justify-center text-deeppink-200">
       <div className="flex-1 lg:w-[50%] h-[20.88rem] overflow-hidden flex items-center justify-center">
         <img
             className="w-[18.63rem] h-[18.63rem] object-cover rounded-[5px]"
@@ -163,55 +164,63 @@ const Homepage = () => {
 
 
       {/*block 4*/}
-      <main className="self-stretch bg-gray h-[32.81rem] shrink-0 flex flex-col items-start justify-start text-center text-[3.75rem] text-white font-ttoctosquares-regular">
-        <div className="self-stretch h-[32.81rem] shrink-0 overflow-hidden flex flex-col py-[2.31rem] px-[13.25rem] box-border items-center justify-center gap-[6.06rem]">
-          <div className="self-stretch flex flex-col items-center justify-center gap-[1.88rem]">
+      <main className="w-full flex items-center justify-center h-96 bg-gray text-center text-[3.75rem] text-white font-ttoctosquares-regular">
+        <div className="w-full px-4 md:px-16 py-6 md:py-6 box-border flex flex-col items-center justify-center gap-[1.06rem]">
+          <div className="w-full flex flex-col items-center justify-center gap-[1.88rem]">
             <div className="relative leading-[3.75rem]">How to buy ?</div>
-            <div className="relative box-border w-[30.81rem] h-[0.25rem] shrink-0 border-t-[4px] border-solid border-white" />
+            <div className="w-[30.81rem] h-[0.25rem] border-t-[4px] border-solid border-white" />
           </div>
-          <div className="self-stretch flex-1 flex flex-row items-center justify-start gap-[1.25rem] text-[1.31rem] text-deeppink-200 font-ttoctosquares-black">
-            <div className="w-[15.63rem] h-[10.56rem] shrink-0 overflow-hidden flex flex-col pt-[4.38rem] px-[0rem] pb-[1.19rem] box-border items-center justify-end gap-[1.88rem]">
-              <div className="relative leading-[1.25rem] flex items-center w-[15.63rem]">
-                <span className="[line-break:anywhere] w-full">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-[1.31rem] text-deeppink-200 font-ttoctosquares-black">
+            <div>
+              <div>
+                <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
+                  <div className="relative leading-[1.25rem]">
+                    <p className="m-0">CONNECT YOUR</p>
+                    <p className="m-0">WALLET</p>
+                  </div>
+                  <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
+                    <p className="m-0">{`You need to connect `}</p>
+                    <p className="m-0">{`your Metamask wallet `}</p>
+                    <p className="m-0">{`to do transactions `}</p>
+                    <p className="m-0">on the platform.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
+                <div className="relative leading-[1.25rem]">
+                  <p className="m-0">{`CHOOSE THE ONE `}</p>
+                  <p className="m-0">YOU LIKE</p>
+                </div>
+                <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
+                  <p className="m-0">{`Purchase the NFT by `}</p>
+                  <p className="m-0">{`placing a bid `}</p>
+                  <p className="m-0">{`on the one `}</p>
+                  <p className="m-0">you chose.</p>
+                  <p className="m-0">And then enjoy.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
+                <div className="relative leading-[1.25rem]">
                   <p className="m-0">CONNECT YOUR</p>
                   <p className="m-0">WALLET</p>
-                </span>
-              </div>
-              <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
-                <p className="m-0">{`You need to connect `}</p>
-                <p className="m-0">{`your Metamask wallet `}</p>
-                <p className="m-0">{`to do transactions `}</p>
-                <p className="m-0">on the platform.</p>
-              </div>
-            </div>
-            <div className="h-[10.25rem] overflow-hidden flex flex-col py-[0rem] px-[0.19rem] box-border items-center justify-start gap-[1.25rem]">
-              <div className="relative leading-[1.25rem]">
-                <p className="m-0">{`CHOOSE THE ONE `}</p>
-                <p className="m-0">YOU LIKE</p>
-              </div>
-              <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
-                <p className="m-0">{`Purchase the NFT by `}</p>
-                <p className="m-0">{`placing a bid `}</p>
-                <p className="m-0">{`on the one `}</p>
-                <p className="m-0">you choosed.</p>
-                <p className="m-0">And then enjoy.</p>
-              </div>
-            </div>
-            <div className="flex-1 h-[10.25rem] overflow-hidden flex flex-col items-center justify-start gap-[1.88rem]">
-              <div className="relative leading-[1.25rem]">
-                <p className="m-0">CONNECT YOUR</p>
-                <p className="m-0">WALLET</p>
-              </div>
-              <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
-                <p className="m-0">{`You need to connect `}</p>
-                <p className="m-0">{`your Metamask wallet `}</p>
-                <p className="m-0">{`to do transactions `}</p>
-                <p className="m-0">on the platform.</p>
+                </div>
+                <div className="relative leading-[1.25rem] font-ttoctosquares-regular text-white">
+                  <p className="m-0">{`You need to connect `}</p>
+                  <p className="m-0">{`your Metamask wallet `}</p>
+                  <p className="m-0">{`to do transactions `}</p>
+                  <p className="m-0">on the platform.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </main>
+
+
 
       {/*block 4 END*/}
 

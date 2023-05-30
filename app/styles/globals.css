@@ -21,3 +21,8 @@ body {
     opacity: 1;
   }
 }
+
+.titulo {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
