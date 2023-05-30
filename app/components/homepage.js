@@ -87,7 +87,7 @@ const Homepage = () => {
 {/*block 2*/}
 
   <div className="self-stretch bg-black h-[70rem] shrink-0 flex flex-col items-start justify-start gap-[0.63rem]">
-    <div className="self-stretch w-full md:w-[90.00rem] h-[40.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[5rem]  mt-2.5">
+    <div className="self-stretch w-full md:w-[85rem] h-[40.56rem] shrink-0 overflow-hidden flex flex-col items-center justify-center gap-[5rem]  mt-2.5">
         <div className="relative text-3xl md:text-[3.75rem] leading-[3.75rem] flex items-center [text-shadow:2px_2px_0px_#ff0f7b,_-2px_-2px_0px_#00d1ff] [-webkit-text-stroke:1px_#000] flex justify-center">
           <span className="[line-break:anywhere]">
             <p className="m-0">{`Buy NFTS at `}</p>
@@ -164,8 +164,9 @@ const Homepage = () => {
 
 
       {/*block 4*/}
-      <main className="w-full flex items-center justify-center h-96 bg-gray text-center text-[3.75rem] text-white font-ttoctosquares-regular">
-        <div className="w-full px-4 md:px-16 py-6 md:py-6 box-border flex flex-col items-center justify-center gap-[1.06rem]">
+      <main className="w-full flex items-center justify-center min-h-full bg-gray text-center text-[3.75rem] text-white font-ttoctosquares-regular">
+
+      <div className="w-full px-4 md:px-16 py-6 md:py-24 box-border flex flex-col items-center justify-center gap-[1.06rem]">
           <div className="w-full flex flex-col items-center justify-center gap-[1.88rem]">
             <div className="relative leading-[3.75rem]">How to buy ?</div>
             <div className="w-[30.81rem] h-[0.25rem] border-t-[4px] border-solid border-white" />
