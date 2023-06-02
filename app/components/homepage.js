@@ -36,7 +36,6 @@ const Homepage = () => {
       <main className="self-stretch h-[36.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
 
        <div class="relative w-full h-screen bg-cover bg-center relative z-10">
-
           <header class="w-full py-4 px-6 bg-gray-100">
             <img className="w-full object-contain absolute inset-0 w-full h-full object-cover z-0" src="/images/background.png" alt=""/>
             <div class="mx-auto flex justify-between items-center max-w-6xl">
