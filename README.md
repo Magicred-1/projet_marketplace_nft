@@ -1,5 +1,5 @@
 # Projet de Marketplace NFT
-**By: [Djason Gadiou](https://github.com/Magicred-1/) && [Agustin Gomez del Toro](https://github.com/AgustinGomezDelToro)**
+**By: [Djason Gadiou](https://github.com/Magicred-1/) && [Agustin Gomez Del Toro](https://github.com/AgustinGomezDelToro)**
 
 ## Description
 Le but de ce projet est de créer un site d'enchères de NFT décentralisés sur le thème de votre choix.
