@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "TTOctosquares-Regular";
+  src: url("../public/TTOctosquares-Regular.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "TTOctosquares-Black";
+  src: url("../public/TTOctosquares-Black.otf");
+  font-weight: 400;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply leading-[normal] m-0;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
