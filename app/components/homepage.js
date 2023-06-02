@@ -1,36 +1,4 @@
-import { useEffect } from "react";
-
 const Homepage = () => {
-  useEffect(() => {
-    const scrollAnimElements = document.querySelectorAll(
-      "[data-animate-on-scroll]"
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting || entry.intersectionRatio > 0) {
-            const targetElement = entry.target;
-            targetElement.classList.add("animate");
-            observer.unobserve(targetElement);
-          }
-        }
-      },
-      {
-        threshold: 0.15,
-      }
-    );
-
-    for (let i = 0; i < scrollAnimElements.length; i++) {
-      observer.observe(scrollAnimElements[i]);
-    }
-
-    return () => {
-      for (let i = 0; i < scrollAnimElements.length; i++) {
-        observer.unobserve(scrollAnimElements[i]);
-      }
-    };
-  }, []);
-
   return (
     <main className="relative w-full flex flex-col items-center justify-center text-center text-[1.31rem] text-white font-ttoctosquares-regular">
       <main className="self-stretch h-[36.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
