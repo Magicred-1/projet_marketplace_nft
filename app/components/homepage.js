@@ -35,7 +35,7 @@ const Homepage = () => {
     <main className="relative w-full flex flex-col items-center justify-center text-center text-[1.31rem] text-white font-ttoctosquares-regular">
       <main className="self-stretch h-[36.81rem] shrink-0 overflow-hidden flex flex-col items-center justify-start bg-[url(/splash@3x.png)] bg-cover bg-no-repeat bg-[top] text-center text-[3.88rem] text-white font-ttoctosquares-regular">
 
-       <div class="relative w-full h-screen bg-cover bg-center relative z-10">
+        <div class="relative w-full h-screen bg-cover bg-center relative z-10">
           <header class="w-full py-4 px-6 bg-gray-100">
             <img className="w-full object-contain absolute inset-0 w-full h-full object-cover z-0" src="/images/background.png" alt=""/>
             <div class="mx-auto flex justify-between items-center max-w-6xl">
@@ -44,16 +44,6 @@ const Homepage = () => {
                 src="/images/digital_delirium_logo.png"
                 alt=""
               />
-              <nav className="w-[16.25rem] shrink-0 flex flex-row py-[1.38rem] px-[3.13rem] box-border items-center justify-center">
-                <button
-                  className="cursor-pointer py-[0rem] px-[0.63rem] bg-deeppink-100 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-                  data-animate-on-scroll
-                >
-                  <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
-                    CONNECT WALLET
-                  </div>
-                </button>
-              </nav>
             </div>
           </header>
 
@@ -69,7 +59,7 @@ const Homepage = () => {
           <div className="self-stretch flex flex-col items-center justify-center">
           <div className="relative z-10">
           <button className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black">
-            <div className="self-stretch relative text-2xl leading-15 font-ttoctosquares-regular text-white text-center flex items-center justify-center w-60">
+            <div className="self-stretch relative text-1xl leading-15 font-ttoctosquares-regular text-white text-center flex items-center justify-center w-60">
               VISIT MARKETPLACE
             </div>
             <div className="flex-1 rounded-31xl bg-white shadow-2xl h-6 overflow-hidden flex flex-row p-2 box-border items-center justify-center">
@@ -236,11 +226,11 @@ const Homepage = () => {
           <div className="w-[75.63rem] h-[3.69rem] shrink-0 flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-end gap-[0.63rem]">
               <button
-                className="cursor-pointer py-[0rem] px-[0.63rem] bg-deeppink-100 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
+                className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-600 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
                 data-animate-on-scroll
               >
                 <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
-                  CONNECT WALLET
+                  GITHUB REPO
                 </div>
               </button>
               <button
