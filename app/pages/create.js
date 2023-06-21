@@ -10,7 +10,7 @@ const BuildNFT = () => {
         <title>Digital Delirium - Build NFT</title>
     </Head>
     <main className="relative bg-white w-full h-[75.06rem] flex flex-col items-center justify-center self-stretch overflow-hidden flex flex-col items-center justify-center text-center text-[4.38rem] text-white font-ttoctosquares-regular">
-        <HeaderComponent headerLogo="/header-logo4.svg" />
+        <HeaderComponent />
         <div className="self-stretch bg-midnightblue h-[66.63rem] overflow-hidden shrink-0 flex flex-col py-[2.25rem] px-[0.06rem] box-border items-center justify-start">
             <div className="self-stretch h-[16.81rem] flex flex-col p-[0.63rem] box-border items-center justify-center">
             <div className="self-stretch flex flex-col p-[0.63rem] items-center justify-center">

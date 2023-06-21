@@ -1,3 +1,13 @@
-import { Mongo } from 'meteor/mongo';
+import { MongoDB } from "mongodb";
 
-export const MongoInit = new Mongo.Collection('mongo_init');
+const { MongoClient } = MongoDB;
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+const client = new MongoClient(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+});
+
+export default client;

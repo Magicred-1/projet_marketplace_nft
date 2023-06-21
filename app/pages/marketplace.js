@@ -1,5 +1,6 @@
 import MarketplaceComponent from "../components/marketplace-component"
 import Head from 'next/head'
+import HeaderComponent from "../components/header-component";
 
 const Marketplace = () => {
     return(
@@ -9,6 +10,7 @@ const Marketplace = () => {
             <meta name="description" content="Marketplace" />
             <link rel="icon" href="/favicon.ico" />
         </Head>,
+        <HeaderComponent />,
         <MarketplaceComponent />
     </>
     );
