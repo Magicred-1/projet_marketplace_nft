@@ -1,42 +1,38 @@
-import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, sepolia, WagmiConfig } from 'wagmi';
-import {goerli} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { createConfig, configureChains, WagmiConfig } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
+// import { SessionProvider } from "next-auth/react";
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
+import "../styles/globals.css";
+import { sepolia } from "@wagmi/chains";
 
-const { chains, provider, webSocketProvider } = configureChains(
-  [
-    sepolia,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
-  ],
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [sepolia],
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'Coin Flip App',
-  projectId: 'coin-flip-app-eth-chainlink',
+  appName: "Digital Delirium NFT Marketplace",
+  projectId: "digital-delirium-nft-marketplace",
   chains,
 });
 
-const wagmiClient = createClient({
+const config = createConfig({
   autoConnect: true,
+  publicClient,
+  webSocketPublicClient,
   connectors,
-  provider,
-  webSocketProvider,
 });
 
+// added RainbowKitProvider wrapper
 function MyApp({ Component, pageProps }) {
   return (
-    <WagmiConfig client={wagmiClient}>
+    <WagmiConfig config={config}>
       <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
   );
 }
-
-// pages/_app.js
-const config = require('../next.config')
 
 export default MyApp;
