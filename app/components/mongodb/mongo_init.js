@@ -1,13 +1,25 @@
-import { MongoDB } from "mongodb";
+import { MongoClient } from 'mongodb'
 
-const { MongoClient } = MongoDB;
-
-const MONGODB_URI = process.env.MONGODB_URI;
-
-const client = new MongoClient(MONGODB_URI, {
-    useNewUrlParser: true,
+const uri = process.env.MONGODB_URI
+const options = {
     useUnifiedTopology: true,
-    useFindAndModify: false,
-});
+    useNewUrlParser: true,
+}
 
-export default client;
+let client;
+let clientPromise;
+
+if (!process.env.MONGODB_URI) {
+    throw new Error('Add Mongo URI to .env.local')
+}
+
+try {
+    client = new MongoClient(uri, options);
+    clientPromise = client.connect();
+    console.log('The connection to the database was successful');
+}
+catch (e) {
+    console.error(e);
+}
+
+export default clientPromise

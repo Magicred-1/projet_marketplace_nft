@@ -3,7 +3,7 @@ import Head from "next/head";
 import HeaderComponent from "../components/header-component";
 
 const RegisterPage = () => {
-  return (
+    return (
     <>
         <Head>
             <title>Digital Delirium - Login</title>

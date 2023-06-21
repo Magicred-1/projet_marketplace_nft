@@ -1,6 +1,5 @@
 import Homepage from "../components/homepage";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Head from 'next/head'
+import Head from 'next/head';
 
 export default function Home() {
   return (
@@ -11,7 +10,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Homepage />
-      <ConnectButton />
     </>
   );
 }
