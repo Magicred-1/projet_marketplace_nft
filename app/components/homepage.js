@@ -26,7 +26,12 @@ const Homepage = () => {
 
           <div className="self-stretch flex flex-col items-center justify-center">
           <div className="relative z-10">
-          <button className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black">
+          <button 
+          className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black"
+          onClick={() => {
+            window.open("/marketplace", "_self");
+          }}
+          >
             <div className="self-stretch relative text-1xl leading-15 font-ttoctosquares-regular text-white text-center flex items-center justify-center w-60">
               VISIT MARKETPLACE
             </div>

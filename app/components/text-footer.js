@@ -38,7 +38,7 @@ const TextFooter = () => {
       </div>
       <button
         className="cursor-pointer py-[0rem] px-[0.63rem] bg-cornflowerblue rounded-xl box-border w-[14.25rem] h-[2.13rem] overflow-hidden shrink-0 flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-        data-animate-on-scroll
+        data-animate-on-scroll onClick={() => window.open("https://github.com/Magicred-1/projet_marketplace_nft")}
       >
         <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
           GITHUB REPO
