@@ -3,9 +3,15 @@ const HeaderComponent = ({ headerLogo }) => {
 return (
   <header className="self-stretch bg-gray-100 flex flex-row py-[0rem] pr-[0.06rem] pl-[2.13rem] items-center justify-center border-b-[1px] border-solid border-white">
     <img
-      className="flex-1 max-w-full overflow-hidden max-h-full"
+      className="flex-1 w-auto h-auto
+      overflow-hidden max-h-full"
       alt=""
       src={headerLogo}
+      height={25}
+      onClick={() => {
+        window.location.href = "/";
+      }
+      }
     />
     <nav className="w-[16.25rem] flex flex-row py-[1.38rem] px-[3.13rem] box-border items-center justify-center">
       <button
