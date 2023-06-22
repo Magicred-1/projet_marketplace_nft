@@ -26,7 +26,12 @@ const Homepage = () => {
 
           <div className="self-stretch flex flex-col items-center justify-center">
           <div className="relative z-10">
-          <button className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black">
+          <button 
+          className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black"
+          onClick={() => {
+            window.open("/marketplace", "_self");
+          }}
+          >
             <div className="self-stretch relative text-1xl leading-15 font-ttoctosquares-regular text-white text-center flex items-center justify-center w-60">
               VISIT MARKETPLACE
             </div>
@@ -132,7 +137,7 @@ const Homepage = () => {
             <div>
               <div>
                 <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
-                  <div className="relative leading-[1.25rem]">
+                  <div className="relative leading-[1.25rem] font-ttoctosquares-regular">
                     <p className="m-0">CONNECT YOUR</p>
                     <p className="m-0">WALLET</p>
                   </div>
@@ -147,7 +152,7 @@ const Homepage = () => {
             </div>
             <div>
               <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
-                <div className="relative leading-[1.25rem]">
+                <div className="relative leading-[1.25rem] font-ttoctosquares-regular">
                   <p className="m-0">{`CHOOSE THE ONE `}</p>
                   <p className="m-0">YOU LIKE</p>
                 </div>
@@ -162,7 +167,7 @@ const Homepage = () => {
             </div>
             <div>
               <div className="h-[10.25rem] flex flex-col py-4 px-4 box-border items-center justify-start gap-[1.25rem]">
-                <div className="relative leading-[1.25rem]">
+                <div className="relative leading-[1.25rem] font-ttoctosquares-regular">
                   <p className="m-0">CONNECT YOUR</p>
                   <p className="m-0">WALLET</p>
                 </div>
@@ -195,7 +200,6 @@ const Homepage = () => {
             <div className="flex flex-row items-center justify-end gap-[0.63rem]">
               <button
                 className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-600 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-                data-animate-on-scroll
               >
                 <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
                   GITHUB REPO
@@ -206,7 +210,7 @@ const Homepage = () => {
                 data-animate-on-scroll
               >
                 <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
-                  CONNECT WALLET
+                  SIGN IN
                 </div>
               </button>
             </div>
@@ -220,7 +224,6 @@ const Homepage = () => {
         </div>
       </main>
     </main>
-
   );
 };
  {/*block 5 END*/}

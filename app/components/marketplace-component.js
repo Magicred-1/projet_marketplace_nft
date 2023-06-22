@@ -6,7 +6,6 @@ import TextFooter from "./text-footer";
 const MarketplaceComponent = () => {
     return (
         <main className="relative bg-white w-full flex flex-col items-center justify-center self-stretch overflow-hidden flex flex-col items-center justify-start text-center text-[4.38rem] text-white font-ttoctosquares-regular">
-            <HeaderComponent headerLogo="/images/digital_delirium_logo.png" />
             <div className="bg-midnightblue w-[75.81rem] h-[51.69rem] overflow-hidden shrink-0 flex flex-col py-[2.25rem] px-[0.06rem] box-border items-center justify-start gap-[5rem]">
             <div className="self-stretch h-[16.81rem] flex flex-col p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
                 <div className="self-stretch flex flex-col p-[0.63rem] items-center justify-center">
