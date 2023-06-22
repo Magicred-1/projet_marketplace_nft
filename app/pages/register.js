@@ -1,8 +1,13 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
 import HeaderComponent from "../components/header-component";
+import { useAccount } from "wagmi";
+import NextAuth from "next-auth/next";
+import { Router } from "next/router";
 
 const RegisterPage = () => {
+    const { address } = useAccount();
+
     return (
     <>
         <Head>
@@ -68,36 +73,46 @@ const RegisterPage = () => {
                     }}> *</span>
                 </span>
                 </h2>
-                <ConnectButton />
+                <ConnectButton 
+                showBalance={false}
+                label="Please connect your Wallet" 
+                accountStatus={"full"} />
             </div>
             <div className="w-[49.94rem] h-[18.69rem] flex flex-col py-[0.63rem] px-[1.88rem] box-border items-center justify-center gap-[0.63rem] text-center text-[1.25rem]">
             <button className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl 
                 box-border w-[18.94rem] h-[2.75rem] flex flex-col 
                 items-center justify-center border-[1px] border-solid border-white"
-                onClick={() => {
-                    fetch("api/register", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            username: document.getElementById("username").value,
-                            password: document.getElementById("password").value,
-                            // get wallet address from connect button
-                            // walletAddress: document.getElementById("walletAddress").value
-                        })
-                    })
-                    .then((res) => {
-                        if (res.status === 200) {
-                            window.location.href = "/marketplace"
-                        }
-                    })
-                    .catch((err) => {
-                        document.getElementById("error").innerHTML = err
-                    })
+                onClick={
+                        () => {
+                            fetch("api/register", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    username: document.getElementById("username").value,
+                                    password: document.getElementById("password").value,
+                                    walletaddress: address,
+                                }),
+                            })
+                            .then((data) => {
+                                if (data.status === 200) {
+                                    localStorage.setItem("user", JSON.stringify({
+                                        username: document.getElementById("username").value,
+                                        walletaddress: address,
+                                    }));
+                                    
+                                    window.location.href = "/marketplace";
+                                } else {
+                                    document.getElementById("error").innerHTML = data.message;
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            }
+                        );
                     }
-                }
-                >
+                }>
                 <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
                 Register
                 </div>

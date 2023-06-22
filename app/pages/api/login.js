@@ -1,5 +1,5 @@
 import clientPromise from "../../components/mongodb/mongo_init";
-import AES from "crypto-js/aes";
+import bcrypt from "bcrypt";
 
 export default async function handler(req, res) {
     const client = await clientPromise;
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: "Missing username or password" });
             }
 
-            const encryptedPassword = AES.encrypt(password, process.env.SECRET_KEY).toString();
+            const encryptedPassword = bcrypt.hashSync(password, 10);
 
             if (username.length < 3 || password.length < 3) {
                 return res.status(400).json({ message: "Username or password is too short" });
@@ -29,13 +29,8 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: "Wrong username or password" });
             }
 
-            console.log(foundMember);
-
             res.status(200).json(foundMember);
             break;
     }
-            
-    
-    client.close();
 }
 

@@ -81,10 +81,9 @@ const LoginPage = () => {
                                     password: document.getElementById("password").value
                                 }),
                             })
-                            .then((response) => response.json())
                             .then((data) => {
                                 if (data.status === "success") {
-                                    window.location.href = "/login"
+                                    window.location.href = "/marketplace"
                                 } else {
                                     document.getElementById("error").innerHTML = data.message
                                 }
