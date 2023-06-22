@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import Head from "next/head";
 import HeaderComponent from "../components/header-component";
 
-const RegisterPage = () => {
+const LoginPage = () => {
     return (
     <>
         <Head>
@@ -24,6 +23,12 @@ const RegisterPage = () => {
                 </div>
                 </div>
             </div>
+            <div style={
+                {
+                    color: "red",
+                }
+            } id="error" className="self-stretch relative leading-[4.97rem] flex items-center justify-center h-[2.19rem] shrink-0">
+            </div>
             <div className="self-stretch h-[41.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem]">
                 <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
                 <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
@@ -37,6 +42,10 @@ const RegisterPage = () => {
                     type="text"
                     maxLength
                     minLength
+                    id="username" 
+                    name="username"
+                    placeholder="Username"
+                    required
                 />
                 </div>
                 <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
@@ -48,16 +57,43 @@ const RegisterPage = () => {
                 </h2>
                 <input
                     className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
-                    type="text"
+                    type="password"
                     maxLength
                     minLength
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
                 />
                 </div>
                 <div className="w-[49.94rem] h-[18.69rem] flex flex-col py-[0.63rem] px-[1.88rem] box-border items-center justify-center gap-[0.63rem] text-center text-[1.25rem]">
                 <button className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl box-border w-[18.94rem] h-[2.75rem] flex flex-col items-center justify-center border-[1px] border-solid border-white">
                     <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left"
                     onClick={
-                        console.log("Login")
+                        () => {
+                            fetch("api/login", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    username: document.getElementById("username").value,
+                                    password: document.getElementById("password").value
+                                }),
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.status === "success") {
+                                    window.location.href = "/login"
+                                } else {
+                                    document.getElementById("error").innerHTML = data.message
+                                }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        }
+                        );
+                    }
                     }>
                     Login
                     </div>
@@ -98,7 +134,7 @@ const RegisterPage = () => {
             </div>
         </main>
     </>
-  );
+);
 };
 
-export default RegisterPage;
+export default LoginPage;

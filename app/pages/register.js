@@ -1,6 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
-// TODO: Add MongoDB and NextAuth.js
 import HeaderComponent from "../components/header-component";
 
 const RegisterPage = () => {
@@ -20,6 +19,12 @@ const RegisterPage = () => {
                 CREATE A NEW ACCOUNT
                 </div>
             </div>
+            <div style={
+                {
+                    color: "red",
+                }
+            } id="error" className="self-stretch relative leading-[4.97rem] flex items-center justify-center h-[2.19rem] shrink-0">
+            </div>
             </div>
             <div className="self-stretch h-[41.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem]">
             <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
@@ -34,6 +39,8 @@ const RegisterPage = () => {
                 type="text"
                 maxLength
                 minLength
+                id="username"
+                placeholder="Username"
                 />
             </div>
             <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
@@ -45,22 +52,52 @@ const RegisterPage = () => {
                 </h2>
                 <input
                 className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
-                type="text"
+                type="password"
                 maxLength
                 minLength
+                id="password"
+                placeholder="Password"
                 />
             </div>
             <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
                 <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
                 <span className="[line-break:anywhere]">
                     <span>Connect your Wallet</span>
-                    <span style={{ color: "red" }}> *</span>
+                    <span style={{ 
+                        color: "red" 
+                    }}> *</span>
                 </span>
                 </h2>
                 <ConnectButton />
             </div>
             <div className="w-[49.94rem] h-[18.69rem] flex flex-col py-[0.63rem] px-[1.88rem] box-border items-center justify-center gap-[0.63rem] text-center text-[1.25rem]">
-            <button className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl box-border w-[18.94rem] h-[2.75rem] flex flex-col items-center justify-center border-[1px] border-solid border-white">
+            <button className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl 
+                box-border w-[18.94rem] h-[2.75rem] flex flex-col 
+                items-center justify-center border-[1px] border-solid border-white"
+                onClick={() => {
+                    fetch("api/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            username: document.getElementById("username").value,
+                            password: document.getElementById("password").value,
+                            // get wallet address from connect button
+                            // walletAddress: document.getElementById("walletAddress").value
+                        })
+                    })
+                    .then((res) => {
+                        if (res.status === 200) {
+                            window.location.href = "/marketplace"
+                        }
+                    })
+                    .catch((err) => {
+                        document.getElementById("error").innerHTML = err
+                    })
+                    }
+                }
+                >
                 <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
                 Register
                 </div>

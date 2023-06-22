@@ -20,7 +20,10 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: "Username or password is too short" });
             } 
 
-            const foundMember = await collection.findOne({ username, password: encryptedPassword });
+            const foundMember = await collection.findOne({ 
+                username, 
+                password: encryptedPassword
+            });
 
             if (!foundMember) {
                 return res.status(400).json({ message: "Wrong username or password" });
