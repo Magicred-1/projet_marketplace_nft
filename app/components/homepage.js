@@ -12,6 +12,16 @@ const Homepage = () => {
                 src="/images/digital_delirium_logo.png"
                 alt=""
               />
+              <nav className="w-[16.25rem] shrink-0 flex flex-row py-[1.38rem] px-[3.13rem] box-border items-center justify-center">
+                <button className="cursor-pointer py-[0rem] px-[0.63rem] bg-deeppink-100 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white z-20"
+                    data-animate-on-scroll>
+
+                  <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
+                    onClick={() => window.location.href = "/login"}>
+                    SIGN IN
+                  </div>
+                </button>
+              </nav>
             </div>
           </header>
 
@@ -192,39 +202,40 @@ const Homepage = () => {
       <main className="self-stretch bg-midnightblue box-border h-[33.06rem] shrink-0 flex flex-col items-center justify-start border-[2px] border-solid border-white">
         <div className="self-stretch h-[32.81rem] shrink-0 overflow-hidden flex flex-col py-[0rem] px-[13.25rem] box-border items-center justify-start gap-[1.06rem]">
           <img
-            className="relative w-[85.25rem] h-[24.38rem] shrink-0 object-cover"
-            alt=""
-            src="/images/imagefooter.png"
+              className="relative w-[85.25rem] h-[24.38rem] shrink-0 object-cover"
+              alt=""
+              src="/images/imagefooter.png"
           />
-          <div className="w-[75.63rem] h-[3.69rem] shrink-0 flex flex-col items-center justify-center">
+          <div className="w-[75.63rem] h-[3.69rem] shrink-0 flex flex-col items-center justify-center flex-wrap">
             <div className="flex flex-row items-center justify-end gap-[0.63rem]">
-              <button
-                className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-600 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-              >
-                <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
+              <button className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-600 rounded-xl box-border w-[10rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[100] border-[1px] border-solid border-white">
+                <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
+                onClick={() => window.location.href="https://github.com/Magicred-1/projet_marketplace_nft/"}>
                   GITHUB REPO
                 </div>
               </button>
-              <button
-                className="cursor-pointer py-[0rem] px-[0.63rem] bg-deeppink-100 rounded-xl box-border w-[14.25rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-                data-animate-on-scroll
-              >
-                <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
+              <button className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-600 rounded-xl box-border w-[10rem] h-[2.13rem] shrink-0 overflow-hidden flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[100] border-[1px] border-solid border-white">
+                <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
+                onClick={() => window.location.href = "/login"}>
                   SIGN IN
                 </div>
               </button>
+
             </div>
           </div>
           <img
-            className="relative w-[75.63rem] h-[0.31rem] shrink-0"
-            alt=""
-            src="/line-2.svg"
+              className="relative w-[75.63rem] h-[0.31rem] shrink-0"
+              alt=""
+              src="/line-2.svg"
           />
           <div />
         </div>
       </main>
+
+      {/*block 5 END*/}
+
     </main>
   );
 };
- {/*block 5 END*/}
+
 export default Homepage;
