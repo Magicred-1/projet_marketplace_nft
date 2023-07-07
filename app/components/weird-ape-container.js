@@ -45,8 +45,6 @@ const WeirdApeContainer = ({ propZIndex, propZIndex1 }) => {
         </div>
       </div>
     </div>
-    
-    
   );
 };
 

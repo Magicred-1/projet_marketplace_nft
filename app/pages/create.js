@@ -1,13 +1,17 @@
 import HeaderComponent from "../components/header-component";
 import NFTForm from "../components/n-f-t-form";
+import RestrictedPage from "../components/restrictedpage-component";
 import TextFooter from "../components/text-footer";
 import Head from "next/head";
 
 const BuildNFT = () => {
     return (
     <>
+    <RestrictedPage />
     <Head>
         <title>Digital Delirium - Build NFT</title>
+        <meta name="description" content="Build NFT" />
+        <link rel="icon" href="/favicon.svg" />
     </Head>
     <main className="relative bg-white w-full h-[75.06rem] flex flex-col items-center justify-center self-stretch overflow-hidden flex flex-col items-center justify-center text-center text-[4.38rem] text-white font-ttoctosquares-regular">
         <HeaderComponent />

@@ -7,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Digital Delirium - Homepage</title>
         <meta name="description" content="Homepage" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <Homepage />
     </>

@@ -1,18 +1,15 @@
-import Head from 'next/head';
-import HeaderComponent from '../components/header-component';
+import ProfileDetails from "../components/profile-details";
+import Head from "next/head";
 
 const ProfilePage = () => {
     return (
         <>
-            <Head>
-                <title>Digital Delirium - Profile</title>
-                <meta name="description" content="Profile" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>,
-            <HeaderComponent />,
-        <div>
-        <h1>Profile Page</h1>
-        </div>
+        <Head>
+            <title>Digital Delirium - Profile</title>
+            <meta name="description" content="Profile" />
+            <link rel="icon" href="/favicon.svg" />
+        </Head>
+        <ProfileDetails />
         </>
     );
 };

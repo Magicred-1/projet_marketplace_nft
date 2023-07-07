@@ -8,9 +8,9 @@ const Marketplace = () => {
         <Head>
             <title>Digital Delirium - Marketplace</title>
             <meta name="description" content="Marketplace" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>,
-        <HeaderComponent />,
+            <link rel="icon" href="/favicon.svg" />
+        </Head>
+        <HeaderComponent />
         <MarketplaceComponent />
     </>
     );

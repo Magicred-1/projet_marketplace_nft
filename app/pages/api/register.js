@@ -10,15 +10,15 @@ export default async function handler(req, res) {
 
     switch (req.method) {
         case "POST":
-            const { username, password, walletaddress } = req.body;
+            const { username, password, walletAddress } = req.body;
 
-            if (!username || !password || !walletaddress) {
+            if (!username || !password || !walletAddress) {
                 return res.status(400).json({
                     status: 400,
                     message: "Missing username, password or walletaddress" });
             }
 
-            if (!walletaddress.match(ETHwalletaddressRegex)) {
+            if (!walletAddress.match(ETHwalletaddressRegex)) {
                 return res.status(400).json({ 
                     status: 400,
                     message: "Wallet Address is invalid" 
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: `The account ${verifyAccount.username} already exists. ` });
             }
 
-            const verifyWalletAddress = await collection.findOne({ walletAddress: walletaddress });
+            const verifyWalletAddress = await collection.findOne({ walletAddress: walletAddress });
 
             if (verifyWalletAddress) {
                 return res.status(400).json({ message: `The wallet address ${verifyWalletAddress.walletAddress} already exists. ` });
@@ -48,15 +48,27 @@ export default async function handler(req, res) {
             }
 
             const insertedMember = await collection.insertOne({
-                username,
-                encryptedPassword,
-                walletAddress: walletaddress,
+                username: username,
+                encryptedPassword: encryptedPassword,
+                walletAddress: walletAddress,
                 created: new Date()
             });
 
-            res.status(200).json(insertedMember, { 
-                status: 200,
-                message: `${insertedMember.username} registered successfully` });
-            break;
+            if (insertedMember) {
+                const insertedMemberData = await collection.findOne({ username: username });
+                if (insertedMemberData) {
+                    const data = {
+                        insertedMember: {
+                            insertedId: insertedMemberData._id,
+                            username: insertedMemberData.username,
+                            encryptPassword: insertedMemberData.encryptedPassword,
+                            walletAddress: insertedMemberData.walletAddress,
+                            created: insertedMemberData.created,
+                        }
+                    };
+                    res.status(200).json(data);
+                    return;
+                }
+            }
     }
 }
