@@ -1,124 +1,136 @@
-// SPDX-License-Identifier: GPL-3.0
-
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract NFTCollection is ERC721, Ownable {
-    struct NFTMetadata {
+contract DigitalDelirium is ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
+
+    Counters.Counter private _tokenIdCounter;
+
+    struct NFT {
+        uint256 tokenId;
         string name;
         string description;
-        string ipfsHash;
         uint256 price;
-        address payable highestBidder;
-        uint256 highestBid;
+        bool listed;
+        string metadataURI;
     }
 
-    NFTMetadata[] public nfts;
+    mapping(uint256 => NFT) private _nfts;
+    mapping(uint256 => address) private _nftCreators;
 
-    mapping(uint256 => uint256) public currentBid;
+    address private _erc20TokenAddress;
 
-    mapping(address => uint256) public numberOfNFTsByAddress;
+    event NFTCreated(uint256 indexed tokenId, address indexed creator);
+    event NFTListed(uint256 indexed tokenId, uint256 price);
+    event NFTSold(uint256 indexed tokenId, address indexed buyer, uint256 price);
+    event NFTBid(uint indexed tokenId, address indexed bidder, uint256 price);
 
-    constructor() ERC721("Digital Delirium", "DDLR") {}
+    constructor(address erc20TokenAddress) ERC721("Digital Delirium", "DDLR") {
+        _erc20TokenAddress = erc20TokenAddress;
+    }
 
     function createNFT(
-        string memory _name,
-        string memory _description,
-        string memory _ipfsHash,
-        uint256 _price
-    ) external onlyOwner returns (uint256) {
-        NFTMetadata memory newNFT = NFTMetadata({
-            name: _name,
-            description: _description,
-            ipfsHash: _ipfsHash,
-            price: _price,
-            highestBidder: payable(address(0)),
-            highestBid: 0
-        });
+        string memory name,
+        string memory description,
+        string memory ipfsUri,
+        uint256 price,
+        bool listed
+    ) external {
+        uint256 newTokenId = _tokenIdCounter.current();
 
-        uint256 tokenId = nfts.length;
-        nfts.push(newNFT);
+        _safeMint(msg.sender, newTokenId);
 
-        _safeMint(msg.sender, tokenId);
+        string memory metadataURI = string(abi.encodePacked(_baseURI(), ipfsUri));
+        _nfts[newTokenId] = NFT(newTokenId, name, description, price, listed, metadataURI);
+        _nftCreators[newTokenId] = msg.sender;
 
-        // Increment the count of NFTs created by the owner address
-        numberOfNFTsByAddress[msg.sender]++;
+        _tokenIdCounter.increment();
 
-        return tokenId;
+        emit NFTCreated(newTokenId, msg.sender);
+
+        _setTokenURI(newTokenId, ipfsUri);
     }
 
-    function buyNFT(uint256 _tokenId) external payable {
-        require(_exists(_tokenId), "NFT with the given ID does not exist");
-        require(
-            msg.value >= nfts[_tokenId].price,
-            "Insufficient funds to buy the NFT"
-        );
-        require(
-            ownerOf(_tokenId) != address(0),
-            "Invalid NFT owner, unable to transfer"
-        );
-
-        address payable owner = payable(ownerOf(_tokenId));
-        address payable buyer = payable(msg.sender);
-        uint256 purchaseValue = msg.value;
-
-        owner.transfer(purchaseValue);
-        _transfer(owner, buyer, _tokenId);
-    }
-
-    function placeBid(uint256 _tokenId) external payable {
-        require(_exists(_tokenId), "NFT with the given ID does not exist");
-        require(
-            msg.value > currentBid[_tokenId],
-            "Bid value must be higher than the current bid"
-        );
-
-        address payable previousBidder = nfts[_tokenId].highestBidder;
-        uint256 previousBid = nfts[_tokenId].highestBid;
-
-        if (previousBidder != address(0)) {
-            previousBidder.transfer(previousBid);
-        }
-
-        currentBid[_tokenId] = msg.value;
-        nfts[_tokenId].highestBidder = payable(msg.sender);
-        nfts[_tokenId].highestBid = msg.value;
-    }
-
-    function getNFTMetadata(uint256 _tokenId)
+    function getNFTDetails(uint256 tokenId)
         external
         view
         returns (
             string memory name,
             string memory description,
-            string memory ipfsHash,
             uint256 price,
-            address highestBidder,
-            uint256 highestBid
+            bool listed
         )
     {
-        require(_exists(_tokenId), "NFT with the given ID does not exist");
-
-        NFTMetadata memory nft = nfts[_tokenId];
-        return (
-            nft.name,
-            nft.description,
-            nft.ipfsHash,
-            nft.price,
-            nft.highestBidder,
-            nft.highestBid
-        );
+        require(_exists(tokenId), "NFT does not exist");
+        NFT storage nft = _nfts[tokenId];
+        return (nft.name, nft.description, nft.price, nft.listed);
     }
 
-    function getAllNFTsMetadata() external view returns (NFTMetadata[] memory) {
-        return nfts;
+    function listNFT(uint256 tokenId, uint256 price) external {
+        require(_exists(tokenId), "NFT does not exist");
+        require(ownerOf(tokenId) == msg.sender, "Not the owner of the NFT");
+
+        NFT storage nft = _nfts[tokenId];
+        require(!nft.listed, "NFT already listed");
+
+        nft.listed = true;
+        nft.price = price;
+
+        emit NFTListed(tokenId, price);
     }
 
-    function getNFTPrice(uint256 _tokenId) external view returns (uint256) {
-        require(_exists(_tokenId), "NFT with the given ID does not exist");
+    function buyNFT(uint256 tokenId) external payable {
+        require(_exists(tokenId), "NFT does not exist");
+        NFT storage nft = _nfts[tokenId];
+        require(nft.listed, "NFT not listed for sale");
+        require(msg.value >= nft.price, "Insufficient payment");
 
-        return nfts[_tokenId].price;
+        address seller = ownerOf(tokenId);
+        _transfer(seller, msg.sender, tokenId);
+        nft.listed = false;
+
+        emit NFTSold(tokenId, msg.sender, nft.price);
+
+        (bool success, ) = seller.call{value: nft.price}("");
+        require(success, "Payment transfer failed");
+    }
+
+    // TODO: Implement the Bid.
+    // function bidNFT(uint256 tokenId, uint256 bidAmount) external {
+    //     require(_exists(tokenId), "NFT does not exist");
+    //     NFT storage nft = _nfts[tokenId];
+    //     require(nft.listed, "NFT not listed for sale");
+
+    //     // Perform bidding actions
+
+    //     // Emit event or perform other actions as required
+    // }
+
+    function totalSupply() public view returns (uint256) {
+        return _tokenIdCounter.current();
+    }
+
+    function exists(uint256 tokenId) external view returns (bool) {
+        return _exists(tokenId);
+    }
+
+    function getAllNFTMetadata() external view returns (NFT[] memory) {
+        uint256 totalNFTs = _tokenIdCounter.current();
+        NFT[] memory allMetadata = new NFT[](totalNFTs);
+
+        for (uint256 i = 0; i < totalNFTs; i++) {
+            NFT storage nft = _nfts[i];
+            allMetadata[i] = NFT(nft.tokenId, nft.name, nft.description, nft.price, nft.listed, nft.metadataURI);
+        }
+
+        return allMetadata;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return "https://ipfs.io/ipfs/";
     }
 }
