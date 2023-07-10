@@ -1,6 +1,6 @@
 import MarketplaceComponent from "../components/marketplace/marketplace-component"
 import Head from 'next/head'
-import HeaderComponent from "../components/header/header-component";
+import HeaderComponent from "../components/global/header-component";
 
 const Marketplace = () => {
     return(

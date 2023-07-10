@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import HeaderComponent from "./header-component";
+import HeaderComponent from "../global/header-component";
 import { useAccount } from "wagmi";
 import { useState } from 'react';
 import Router from 'next/router';

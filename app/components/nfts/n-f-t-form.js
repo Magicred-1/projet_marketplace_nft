@@ -41,7 +41,7 @@ const NFTForm = () => {
     initialize();
 
     // IPFS client initialization
-    const auth = 'Basic ' + Buffer.from(INFURA_PROJECT_ID + ':' + INFURA_SECRET).toString('base64');
+    const auth = 'Basic ' + Buffer.from("2SLd0jmCIYe920D2fpxoGPRlZDC" + ':' + "7564e78b528e9c028830f8ca8cd3b1b4").toString('base64');
     const ipfsClient = create({
       host: 'ipfs.infura.io',
       port: 5001,
@@ -82,12 +82,12 @@ const NFTForm = () => {
       return;
     }
 
-    if (name.length > 5) {
-      setError('Name must be less than 5 characters.\n');
+    if (name.length < 5) {
+      setError('Name must be greater than 5 characters.\n');
       return;
     }
 
-    if (description.length > 10) {
+    if (description.length < 10) {
       setError('Description must be less than 10 characters.\n');
       return;
     }

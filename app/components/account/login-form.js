@@ -1,4 +1,4 @@
-import HeaderComponent from "./../header/header-component";
+import HeaderComponent from "../global/header-component";
 import { useState } from "react";
 import Router from 'next/router';
 import TextFooter from "../global/text-footer";

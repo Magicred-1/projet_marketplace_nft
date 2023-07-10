@@ -1,5 +1,5 @@
 import Head from "next/head";
-import RegisterForm from "../components/register-form";
+import RegisterForm from "../components/account/register-form";
 
 const RegisterPage = () => {
     return (

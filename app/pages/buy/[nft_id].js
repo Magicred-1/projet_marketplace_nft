@@ -1,4 +1,4 @@
-import HeaderComponent from "../../components/header/header-component";
+import HeaderComponent from "../../components/global/header-component";
 import NFTBuyDetail from "../../components/nfts/nft_buy_details";
 import Head from "next/head";
 import abi from "../../abi/abi.json";

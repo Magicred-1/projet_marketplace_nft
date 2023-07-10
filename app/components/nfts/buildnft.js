@@ -1,5 +1,5 @@
 import HeaderComponent from "../components/header-component";
-import NFTForm from "../components/n-f-t-form";
+import NFTForm from "./n-f-t-form";
 import TextFooter from "../global/text-footer";
 
 const BuildNFT = () => {

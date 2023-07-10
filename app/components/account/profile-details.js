@@ -1,9 +1,10 @@
-import HeaderComponent from "./header-component";
+import HeaderComponent from "./../global/header-component";
 import TextFooter from "../global/text-footer";
 import { useState, useEffect } from "react";
 import { abi } from "../../abi/abi.json";
 import { ethers } from "ethers";
 import moment from 'moment';
+import ProfileCreation from "./profile-creations";
 
 const ProfileDetails = () => {
     const contractAbi = abi;
@@ -142,11 +143,7 @@ const ProfileDetails = () => {
                         </div>
                     </div>
                 </div>
-                <div className="relative text-[1.78rem] text-shadow:0px_4px_4px_rgba(0,_0,_0,_0.25) h-[3.81rem] self-stretch flex flex-col p-[0.63rem] box-border items-center justify-center">
-                    CREATIONS :
-                </div>
-                {/* TODO: NFTs created section */}
-
+                <ProfileCreation />
             </div>
             <TextFooter />
         </main>

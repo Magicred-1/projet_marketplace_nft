@@ -1,4 +1,4 @@
-import HeaderComponent from "../components/header/header-component";
+import HeaderComponent from "../components/global/header-component";
 import NFTForm from "../components/nfts/n-f-t-form";
 import RestrictedPage from "../components/restrict/restrictedpage-component";
 import TextFooter from "../components/global/text-footer";
