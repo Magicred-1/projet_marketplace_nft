@@ -15,70 +15,56 @@ const HeaderComponent = () => {
   return (
     <>
       <RestrictedPage />
-      <header
-        className="self-stretch bg-gray-100 flex flex-row py-[0rem] pr-[0.06rem] pl-[2.13rem] items-center justify-center border-b-[1px] border-solid bg-black border-white"
-      >
-      <div class="flex justify-between items-center max-w-6xl">
-        <img
-          class="w-54 h-58 object-contain cursor-pointer"
-          src="/images/digital_delirium_logo.png"
-          alt="Digital Delirium Logo"
-          onClick={
-            () => window.location.href = "/"
-          }
-        />
+      <header className="self-stretch bg-gray-100 flex flex-row py-0 pr-1 sm:pr-6 pl-2 sm:pl-8 items-center justify-between border-b-1 border-solid bg-black border-white">
+        <div className="flex justify-between items-center max-w-6xl">
+          <img
+            className="w-28 sm:w-36 h-auto object-contain cursor-pointer"
+            src="/images/digital_delirium_logo.png"
+            alt="Digital Delirium Logo"
+            onClick={() => window.location.href = "/"}
+          />
         </div>
-        { isConnected ? (
-        <nav
-          className="w-[16.25rem] flex flex-row py-[1.38rem] px-[3.13rem] box-border items-center justify-center"
-        >
-              <button
-              className="cursor-pointer py-[0rem] px-[0.63rem] 
-              bg-deeppink-100 rounded-xl box-border 
-              w-[14.25rem] h-[2.13rem] overflow-hidden 
-              shrink-0 flex flex-row items-center 
-              justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] 
-              opacity-[0] border-[1px] border-solid border-white"
-            >
-                <div
-                className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
-              onClick={
-                () => Router.push("/profile")
-              }>
-                {walletAddress.substring(0, 6) + "..." + walletAddress.substring(walletAddress.length - 4)} 
-              </div>
-            </button>
-            <button
-            >
-                <div
-                className="font-ttoctosquares-regular bg-red-500"
-              onClick={
-                () => {
-                  localStorage.removeItem("user");
-                  Router.push("/marketplace");
-                }
-              }>
-                SIGN OUT
-              </div>
-            </button>
-        </nav>
-        ) : (
-          <nav
-          className="w-[16.25rem] flex flex-row py-[1.38rem] px-[3.13rem] box-border items-center justify-center"
-        >
+        {isConnected ? (
+        <nav className="w-64 sm:w-80 flex flex-row py-2 px-2 sm:px-4 box-border items-center justify-between">
           <button
-            className="cursor-pointer py-[0rem] px-[0.63rem] bg-deeppink-100 rounded-xl box-border w-[14.25rem] h-[2.13rem] overflow-hidden shrink-0 flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-            data-animate-on-scroll
+            className="cursor-pointer py-1 px-2 bg-deeppink-100 font-ttoctosquares-regular rounded-xl text-white"
+            onClick={() => Router.push("/profile")}
           >
-            <div
-              className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
-            onClick={
-              () => window.location.href = "/login"
-            }>
-              SIGN IN
-            </div>
+            PROFILE
+          </button>
+          <button
+            className="cursor-pointer py-1 px-2 bg-orange-100 font-ttoctosquares-regular rounded-xl text-white"
+            onClick={() => {
+              Router.push("/create");
+            }}
+          >
+            CREATE
+          </button>
+          <button
+            className="cursor-pointer py-1 px-2 bg-red-500 font-ttoctosquares-regular rounded-xl text-white"
+            onClick={() => {
+              localStorage.removeItem("user");
+              Router.push("/marketplace");
+            }}
+          >
+            SIGN OUT
           </button>
         </nav>
+        ) : (
+          <nav className="w-36 sm:w-64 flex flex-row py-2 px-2 sm:px-4 box-border items-center justify-center">
+            <button
+              className="cursor-pointer py-1 px-2 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular rounded-xl text-white"
+              onClick={() => window.location.href = "/login"}
+            >
+              SIGN IN
+            </button>
+            <button
+              className="cursor-pointer py-1 px-2 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular rounded-xl text-white"
+              onClick={() => window.location.href = "/register"}
+            >
+              SIGN UP
+            </button>
+          </nav>
         )}
       </header>
     </>

@@ -19,8 +19,6 @@ contract NFTCollection is ERC721, Ownable {
 
     mapping(uint256 => uint256) public currentBid;
 
-    mapping(address => uint256) public numberOfNFTsByAddress;
-
     constructor() ERC721("Digital Delirium", "DDLR") {}
 
     function createNFT(
@@ -42,10 +40,6 @@ contract NFTCollection is ERC721, Ownable {
         nfts.push(newNFT);
 
         _safeMint(msg.sender, tokenId);
-
-        // Increment the count of NFTs created by the owner address
-        numberOfNFTsByAddress[msg.sender]++;
-
         return tokenId;
     }
 
@@ -110,15 +104,5 @@ contract NFTCollection is ERC721, Ownable {
             nft.highestBidder,
             nft.highestBid
         );
-    }
-
-    function getAllNFTsMetadata() external view returns (NFTMetadata[] memory) {
-        return nfts;
-    }
-
-    function getNFTPrice(uint256 _tokenId) external view returns (uint256) {
-        require(_exists(_tokenId), "NFT with the given ID does not exist");
-
-        return nfts[_tokenId].price;
     }
 }

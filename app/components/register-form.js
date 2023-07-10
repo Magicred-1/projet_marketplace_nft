@@ -50,7 +50,7 @@ const RegisterForm = () => {
 
     return (
         <>
-        <main className="relative bg-white w-full h-[75.06rem] flex flex-col items-center 
+        <main className="relative bg-white w-full flex flex-col items-center 
         justify-center self-stretch overflow-hidden flex flex-col 
         items-center justify-center text-center text-[4.38rem] text-white font-ttoctosquares-regular">
             <HeaderComponent />

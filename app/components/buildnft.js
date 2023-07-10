@@ -20,9 +20,7 @@ const BuildNFT = () => {
             </div>
             <NFTForm />
             </div>
-            <div className="self-stretch bg-midnightblue flex flex-col items-start justify-center border-[1px] border-solid border-white">
             <TextFooter />
-            </div>
         </main>
     );
 };
