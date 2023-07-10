@@ -6,8 +6,8 @@ import "../styles/globals.css";
 import { sepolia } from "@wagmi/chains";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [sepolia],
-  [publicProvider()]
+    [sepolia],
+    [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -26,11 +26,11 @@ const config = createConfig({
 // added RainbowKitProvider wrapper
 function MyApp({ Component, pageProps }) {
   return (
-    <WagmiConfig config={config}>
-      <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
-      </RainbowKitProvider>
-    </WagmiConfig>
+      <WagmiConfig config={config}>
+        <RainbowKitProvider chains={chains}>
+          <Component {...pageProps} />
+        </RainbowKitProvider>
+      </WagmiConfig>
   );
 }
 

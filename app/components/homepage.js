@@ -6,7 +6,7 @@ const Homepage = () => {
         <div className="relative w-full h-screen bg-cover bg-center relative z-10">
           <header className="w-full py-4 px-6 bg-gray-100">
             <img className="w-full object-contain absolute inset-0 w-full h-full object-cover z-0" src="/images/background.png" alt=""/>
-            <div className="mx-auto flex justify-between items-center max-w-6xl">
+            <div class="mx-auto flex justify-between items-center max-w-6xl">
               <img
                   className="w-54 h-58 object-contain z-10"
                 src="/images/digital_delirium_logo.png"
@@ -36,7 +36,7 @@ const Homepage = () => {
 
           <div className="self-stretch flex flex-col items-center justify-center">
           <div className="relative z-10">
-          <button 
+          <button
           className="cursor-pointer p-2 bg-deeppink-100 rounded-11xl box-border w-72 h-10 overflow-hidden flex flex-row items-center justify-center gap-2 border-2 border-solid border-black"
           onClick={() => {
             window.open("/marketplace", "_self");

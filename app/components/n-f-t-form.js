@@ -128,11 +128,11 @@ const NFTForm = () => {
         return;
       } else {
         const tx = await contract.createNFT(name, description, imageCID, formattedPrice);
-    
+
         setSuccess(`Creating NFT, please wait...\n`);
-    
+
         await tx.wait();
-    
+
         setSuccess('NFT created successfully! ');
         setImagePreview(`https://ipfs.io/ipfs/${imageCID}`);
       }
@@ -143,7 +143,7 @@ const NFTForm = () => {
   };
 
   return (
-    <div className="self-stretch h-[41.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem] text-white font-ttoctosquares-regular">
+      <div className="self-stretch h-[41.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem] text-white font-ttoctosquares-regular">
       <span style={{ color: 'red' }}>
         {/* center img */}
         <div className="self-stretch
@@ -153,82 +153,82 @@ const NFTForm = () => {
         </div>
         {error ? error : success}
       </span>
-      <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
-        <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
+        <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
+          <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
           <span className="[line-break:anywhere]">
             <span>Name</span>
             <span style={{ color: 'red' }}>*</span>
           </span>
-        </h2>
-        <input
-          className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
-          Name of your NFT.
-        </div>      
-      </div>
-      <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-center gap-[0.63rem]">
-        <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
+          </h2>
+          <input
+              className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+          />
+          <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
+            Name of your NFT.
+          </div>
+        </div>
+        <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-center gap-[0.63rem]">
+          <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
           <span className="[line-break:anywhere]">
             <span>Description</span>
             <span style={{ color: 'red' }}>*</span>
           </span>
-        </h2>
-        <input
-          className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
-          Description of your NFT.
+          </h2>
+          <input
+              className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+          />
+          <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
+            Description of your NFT.
+          </div>
         </div>
-      </div>
-      <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
-        <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
+        <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
+          <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
           <span className="[line-break:anywhere]">
             <span>Price</span>
             <span style={{ color: 'red' }}>*</span>
           </span>
-        </h2>
-        <input
-          className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
-          type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
-          Price of your NFT in ETH.
+          </h2>
+          <input
+              className="bg-lightcoral self-stretch relative box-border h-[2rem] border-[5px] border-solid border-white"
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+          />
+          <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
+            Price of your NFT in ETH.
+          </div>
         </div>
-      </div>
-      <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
-        <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
+        <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
+          <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
           <span className="[line-break:anywhere] w-full">
             <span>Image</span>
             <span style={{ color: 'red' }}>*</span>
           </span>
-        </div>
-        <input
-          className="flex flex-col p-[0.63rem] items-center justify-center border-[5px] border-solid border-white"
-          type="file"
-          required
-          onChange={(e) => setImageFile(e.target.files[0])}
-        />
-      </div>
-      <div className="w-[49.94rem] h-[7.56rem] flex flex-row py-[0.63rem] px-[1.88rem] box-border items-center justify-center">
-        <button
-          className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl box-border w-[18.94rem] h-[2.75rem] flex flex-col items-center justify-center border-[1px] border-solid border-white"
-          onClick={handleSubmit}
-        >
-          <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
-            Submit
           </div>
-        </button>
+          <input
+              className="flex flex-col p-[0.63rem] items-center justify-center border-[5px] border-solid border-white"
+              type="file"
+              required
+              onChange={(e) => setImageFile(e.target.files[0])}
+          />
+        </div>
+        <div className="w-[49.94rem] h-[7.56rem] flex flex-row py-[0.63rem] px-[1.88rem] box-border items-center justify-center">
+          <button
+              className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl box-border w-[18.94rem] h-[2.75rem] flex flex-col items-center justify-center border-[1px] border-solid border-white"
+              onClick={handleSubmit}
+          >
+            <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
+              Submit
+            </div>
+          </button>
+        </div>
       </div>
-    </div>
   );
 };
 
