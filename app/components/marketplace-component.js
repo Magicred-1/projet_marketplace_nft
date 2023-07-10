@@ -1,6 +1,7 @@
-import HeaderComponent from "./header-component";
 import NTFsContainer from "./n-t-fs-container";
 import TextFooter from "./text-footer";
+// TODO : Adding the number of items, owners and collections
+// from the smart contract
 
 
 

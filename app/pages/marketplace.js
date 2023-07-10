@@ -4,16 +4,15 @@ import HeaderComponent from "../components/header-component";
 
 const Marketplace = () => {
     return(
-    <>
-        <Head>
-            <title>Digital Delirium - Marketplace</title>
-            <meta name="description" content="Marketplace" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <HeaderComponent />
-        <MarketplaceComponent />
-    </>
+        <>
+            <Head>
+                <title>Digital Delirium - Marketplace</title>
+                <meta name="description" content="Marketplace" />
+                <link rel="icon" href="/favicon.svg" />
+            </Head>
+            <HeaderComponent />
+            <MarketplaceComponent />
+        </>
     );
 }
 export default Marketplace;
-
