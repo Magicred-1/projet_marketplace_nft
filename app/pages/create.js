@@ -1,7 +1,7 @@
-import HeaderComponent from "../components/header-component";
-import NFTForm from "../components/n-f-t-form";
-import RestrictedPage from "../components/restrictedpage-component";
-import TextFooter from "../components/text-footer";
+import HeaderComponent from "../components/global/header-component";
+import NFTForm from "../components/nfts/n-f-t-form";
+import RestrictedPage from "../components/restrict/restrictedpage-component";
+import TextFooter from "../components/global/text-footer";
 import Head from "next/head";
 
 const BuildNFT = () => {

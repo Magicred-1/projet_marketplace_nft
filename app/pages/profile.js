@@ -1,4 +1,4 @@
-import ProfileDetails from "../components/profile-details";
+import ProfileDetails from "../components/account/profile-details";
 import Head from "next/head";
 
 const ProfilePage = () => {
