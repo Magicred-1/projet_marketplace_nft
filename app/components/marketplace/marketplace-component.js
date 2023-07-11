@@ -1,11 +1,6 @@
 import NTFsContainer from "../nfts/n-t-fs-container";
 import TextFooter from "../global/text-footer";
-// TODO : Adding the number of items, owners and collections
-// from the smart contract
-
-
-
-
+import MarketplaceStats from "./marketplace-stats";
 
 const MarketplaceComponent = () => {
     return (
@@ -17,26 +12,7 @@ const MarketplaceComponent = () => {
                             MARKETPLACE
                         </h1>
                     </div>
-                    <div className="w-full md:w-[40.5rem] flex flex-row items-center justify-center gap-2 md:gap-9 text-xl md:text-[3.13rem]">
-                        <div className="flex-1 relative leading-5 md:leading-[4.97rem]">
-                            <p className="mb-2">
-                                3
-                            </p>
-                            <p className="m-0 text-deeppink-200">Items</p>
-                        </div>
-                        <div className="flex-1 relative leading-5 md:leading-[4.97rem] text-shadow-md">
-                            <p className="mb-2">
-                                2
-                            </p>
-                            <p className="m-0 text-deeppink-200">Owners</p>
-                        </div>
-                        <div className="flex-1 relative leading-5 md:leading-[4.97rem]">
-                            <p className="mb-2">
-                                3
-                            </p>
-                            <p className="m-0 text-deeppink-200">Collections</p>
-                        </div>
-                    </div>
+                    <MarketplaceStats />
                 </div>
                 <NTFsContainer />
             </div>

@@ -41,7 +41,7 @@ const NFTForm = () => {
     initialize();
 
     // IPFS client initialization
-    const auth = 'Basic ' + Buffer.from("2SLd0jmCIYe920D2fpxoGPRlZDC" + ':' + "7564e78b528e9c028830f8ca8cd3b1b4").toString('base64');
+    const auth = 'Basic ' + Buffer.from(INFURA_PROJECT_ID + ':' + INFURA_SECRET).toString('base64');
     const ipfsClient = create({
       host: 'ipfs.infura.io',
       port: 5001,
@@ -205,10 +205,7 @@ const NFTForm = () => {
             Price of your NFT in ETH.
           </div>
         </div>
-        <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
-          <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
-      </div>
-      <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
+        <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
         <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
           <span className="[line-break:anywhere]">
             <span>List your NFT ?</span>
@@ -223,6 +220,9 @@ const NFTForm = () => {
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
+      </div>
+        <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
+          <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
       </div>
       <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
         <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
@@ -244,7 +244,7 @@ const NFTForm = () => {
               onClick={handleSubmit}
           >
             <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
-              Submit
+              Build
             </div>
           </button>
         </div>
