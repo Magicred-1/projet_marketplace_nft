@@ -58,24 +58,24 @@ const HeaderComponent = () => {
             )}
         </nav>
         ) : (
-          <nav className="w-36 sm:w-64 flex flex-row py-2 px-2 sm:px-4 box-border items-center justify-center">
-              {router.pathname !== '/login' && (
-              <button
-              className="cursor-pointer py-1 px-2 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular rounded-xl text-white"
-              onClick={() => window.location.href = "/login"}
-            >
-              LOGIN
-            </button>
+            <nav className="w-36 sm:w-64 flex flex-row py-1 px-3 sm:px-4 box-border items-center justify-center space-x-5">
+                {router.pathname !== '/login' && (
+                <button
+                    className="cursor-pointer py-1 px-2 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular text-white text-xl"
+                    onClick={() => window.location.href = "/login"}
+                >
+                    SIGN IN
+                </button>
                 )}
                 {router.pathname !== '/register' && (
-            <button
-              className="cursor-pointer py-1 px-2 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular rounded-xl text-white"
-              onClick={() => window.location.href = "/register"}
-            >
-              REGISTER
-            </button>
+                <button
+                    className="cursor-pointer py-1 px-3 bg-deeppink-100 rounded-xl box-border font-ttoctosquares-regular text-white text-xl"
+                    onClick={() => window.location.href = "/register"}
+                >
+                    SIGN UP
+                </button>
                 )}
-          </nav>
+            </nav>
         )}
       </header>
     </>
