@@ -19,7 +19,6 @@ const LoginForm = () => {
                 password: password,
             }),
         })
-<<<<<<< HEAD:app/components/login-form.js
             .then((res) => res.json())
             .then((data) => {
                 if (res.status === 200) {
@@ -32,33 +31,12 @@ const LoginForm = () => {
                     }));
                     Router.push("/marketplace");
                 } else {
-                    // document.getElementById("error").innerHTML = data.message;
                     setError(data.message);
                 }
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
-=======
-        .then((res) => res.json())
-        .then((data) => {
-            if (res.status === 200) {
-                localStorage.setItem("user", JSON.stringify({
-                    userID: data.foundMember.insertedId,
-                    username: data.foundMember.username,
-                    password: data.foundMember.encryptPassword,
-                    walletAddress: data.foundMember.walletAddress,
-                    created: data.foundMember.created,
-                }));
-                Router.push("/marketplace");
-            } else {
-                setError(data.message);
-            }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
->>>>>>> main:app/components/account/login-form.js
     };
 
     return (
@@ -150,25 +128,7 @@ const LoginForm = () => {
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD:app/components/login-form.js
-                <div className="self-stretch bg-midnightblue flex flex-col items-start justify-center text-left text-[1.25rem] border-[1px] border-solid border-white">
-                    <div className="w-[75.38rem] h-[3.56rem] flex flex-row py-[0rem] px-[1.81rem] box-border items-center justify-center">
-                        <div className="relative leading-[3.75rem] inline-block w-[59.44rem] shrink-0">
-                            Digital Delirium © 2023 ALL RIGHTS RESERVED
-                        </div>
-                        <button
-                            className="cursor-pointer py-[0rem] px-[0.63rem] bg-cornflowerblue rounded-xl box-border w-[14.25rem] h-[2.13rem] overflow-hidden shrink-0 flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-                            data-animate-on-scroll
-                        >
-                            <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
-                                GITHUB REPO
-                            </div>
-                        </button>
-                    </div>
-                </div>
-=======
                 <TextFooter />
->>>>>>> main:app/components/account/login-form.js
             </main>
         </>
     );
