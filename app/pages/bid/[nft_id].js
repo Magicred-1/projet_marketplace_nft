@@ -1,5 +1,6 @@
-import HeaderComponent from "../../components/header-component";
-import NFTBIDDetail from "../../components/nft_bid_details";
+import HeaderComponent from "../../components/global/header-component";
+import TextFooter from "../../components/global/text-footer";
+import NFTBidDetails from "../../components/nfts/nft_bid_details";
 import Head from "next/head";
 
 import { useRouter } from 'next/router'
@@ -32,23 +33,9 @@ const BidPage = () => {
                         </div>
                     </div>
                 </div>
-                <NFTBIDDetail nft_name={nft_collection_name} nft_id={nft_id} nft_image={nft_image} />
+                <NFTBidDetails nft_name={nft_collection_name} nft_id={nft_id} nft_image={nft_image} />
             </div>
-            <div className="self-stretch bg-midnightblue flex flex-col items-start justify-center text-left text-[1.25rem] border-[1px] border-solid border-white">
-                <div className="w-[75.38rem] h-[3.56rem] flex flex-row py-[0rem] px-[1.81rem] box-border items-center justify-center">
-                <div className="relative leading-[3.75rem] inline-block w-[59.44rem] shrink-0">
-                    Digital Delirium © 2023 ALL RIGHTS RESERVED
-                </div>
-                <button
-                    className="cursor-pointer py-[0rem] px-[0.63rem] bg-cornflowerblue rounded-xl box-border w-[14.25rem] h-[2.13rem] overflow-hidden shrink-0 flex flex-row items-center justify-center [&.animate]:animate-[1s_ease_0s_1_normal_forwards_fade-in] opacity-[0] border-[1px] border-solid border-white"
-                    data-animate-on-scroll
-                >
-                    <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
-                    GITHUB REPO
-                    </div>
-                </button>
-                </div>
-            </div>
+            <TextFooter />
             </main>
         </main>
         </>

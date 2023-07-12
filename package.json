@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "@openzeppelin/contracts": "^4.9.2",
+    "chai": "^4.3.7",
+    "hardhat": "^2.16.1",
     "moment": "^2.29.4"
   }
 }

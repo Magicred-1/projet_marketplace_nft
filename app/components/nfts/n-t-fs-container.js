@@ -4,6 +4,8 @@ import MarketplaceNFTContainer from "../marketplace/marketplace-nft-container";
 import { abi } from "../../abi/abi.json";
 
 const NTFsContainer = () => {
+  const contractAbi = abi;
+  const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
   const [nftDatas, setNFTDatas] = useState([]);
 
   useEffect(() => {
@@ -11,9 +13,6 @@ const NTFsContainer = () => {
   }, []);
 
   const getNFTDatas = async () => {
-    const contractAbi = abi;
-    const contractAddress = "0x2F3241ccc7955276c11DcD7FF50810c3c204F77A";
-
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -45,27 +44,25 @@ const NTFsContainer = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center pt-10">
-      {nftDatas.length > 0 ? (
-        nftDatas.map((nftData) => (
-          <div key={nftData.tokenId}>
-            <MarketplaceNFTContainer
-              nftID={nftData.tokenId}
-              nftName={nftData.name}
-              nftImage={nftData.metadataURI}
-              nftPrice={nftData.price}
-            />
-          </div>
-        ))
-      ) : (
-        <div className="col-span-full">
-          <div className="flex flex-col items-center justify-center w-full h-full">
-            <p className="text-2xl font-bold">No NFTs found</p>
-          </div>
-        </div>
-      )}
+    <div className="container mx-auto flex justify-center pt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 pt-10">
+        {nftDatas.length > 0 ? (
+          nftDatas.map((nftData) => (
+            <div key={nftData.tokenId} className="w-full sm:w-1/2 md:w-1/3">
+              <MarketplaceNFTContainer
+                nftID={nftData.tokenId}
+                nftName={nftData.name}
+                nftImage={nftData.metadataURI}
+                nftPrice={nftData.price}
+              />
+            </div>
+          ))
+        ) : (
+          <div>No NFT data available.</div>
+        )}
+      </div>
     </div>
-  );  
+  );
 };
 
 export default NTFsContainer;

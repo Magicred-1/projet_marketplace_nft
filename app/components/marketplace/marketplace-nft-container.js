@@ -19,7 +19,11 @@ const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
               {nftPrice} ETH
             </div>
           </div>
-          <button className="cursor-pointer [border:none] p-[0.63rem] bg-mediumvioletred rounded-6xl w-[5.25rem] h-[2.31rem] flex flex-col box-border items-center justify-center"
+          <button className="cursor-pointer [border:none] 
+          p-[0.63rem] bg-red-400 w-[5.25rem] 
+          h-[2.31rem] flex flex-col box-border items-center justify-center
+          py-2 px-4 hover:bg-red-600 transition-colors duration-300 ease-in-out
+          rounded-full"
           onClick={
             () => {
               Router.push({
@@ -32,7 +36,10 @@ const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
               BUY
             </div>
           </button>
-          <button className="cursor-pointer [border:none] p-[0.63rem] bg-mediumvioletred rounded-6xl w-[5.25rem] h-[2.31rem] flex flex-col box-border items-center justify-center"
+          <button className="cursor-pointer [border:none] 
+          p-[0.63rem] bg-blue-400 rounded-full w-[5.25rem] 
+          h-[2.31rem] flex flex-col box-border items-center justify-center
+          py-2 px-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
           onClick={
             () => {
               Router.push({

@@ -19,10 +19,10 @@ const NFTForm = () => {
   const [success, setSuccess] = useState(null);
 
 
-  const contractAddress = "0x2F3241ccc7955276c11DcD7FF50810c3c204F77A";
+  const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
   const contractABI = abi;
-  const INFURA_SECRET = process.env.INFURA_SECRET;
-  const INFURA_PROJECT_ID = process.env.INFURA_PROJECT_ID;
+  // const INFURA_SECRET = String(process.env.INFURA_SECRET);
+  // const INFURA_PROJECT_ID = String(process.env.INFURA_PROJECT_ID);
 
   useEffect(() => {
     const initialize = async () => {
@@ -41,7 +41,7 @@ const NFTForm = () => {
     initialize();
 
     // IPFS client initialization
-    const auth = 'Basic ' + Buffer.from(INFURA_PROJECT_ID + ':' + INFURA_SECRET).toString('base64');
+    const auth = 'Basic ' + Buffer.from("2SLd0jmCIYe920D2fpxoGPRlZDC" + ':' + "7564e78b528e9c028830f8ca8cd3b1b4").toString('base64');
     const ipfsClient = create({
       host: 'ipfs.infura.io',
       port: 5001,
@@ -92,8 +92,18 @@ const NFTForm = () => {
       return;
     }
 
-    if (price < 0) {
-      setError('Price must be greater than 0.\n');
+    if (price < 1) {
+      setError('Price must be greater than 1.\n');
+      return;
+    }
+
+    if (price > 100) {
+      setError('Price must be less than 100.\n');
+      return;
+    }
+
+    if (price % 1 !== 0) {
+      setError('Price must be rounded to the nearest integer.\n');
       return;
     }
 
@@ -121,13 +131,15 @@ const NFTForm = () => {
       const imageCID = await uploadImageToIPFS(imageFile);
 
       // Convert the price to the required format (e.g., from Ether to Wei)
-      const formattedPrice = ethers.utils.parseEther(price);
+      const formattedPrice = price;
 
       // Connect to the smart contract
       const contract = new ethers.Contract(contractAddress, contractABI, provider.getSigner());
 
       const connectedWalletAddress = accounts[0];
       const localStorageWalletAddress = JSON.parse(localStorage.getItem('user')).walletAddress;
+
+      setSuccess('Waiting for the transaction confirmation...')
 
       const tx = await contract.createNFT(name, description, imageCID, formattedPrice, listedNFT);
 
@@ -144,13 +156,13 @@ const NFTForm = () => {
   };
 
   return (
-      <div className="self-stretch h-[41.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem] text-white font-ttoctosquares-regular">
+      <div className="self-stretch h-[10.94rem] flex flex-col py-[0.63rem] px-[4.81rem] box-border items-center justify-start gap-[0.63rem] text-left text-[1.5rem] text-white font-ttoctosquares-regular">
       <span style={{ color: 'red' }}>
         {/* center img */}
         <div className="self-stretch
         flex flex-col
         center box-border items-center justify-center">
-          {imagePreview && imageFile ? <img src={imagePreview} className='border border-solid border-white' alt="NFT preview" height={100} /> : null}
+          {imagePreview && imageFile ? <img src={imagePreview} className='border border-solid border-white' alt="NFT preview" height={200} /> : null}
         </div>
         {error ? error : success}
       </span>
@@ -208,7 +220,7 @@ const NFTForm = () => {
         <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">
         <h2 className="m-0 self-stretch relative text-[inherit] leading-[4.97rem] font-normal font-inherit flex items-center h-[2.13rem] shrink-0">
           <span className="[line-break:anywhere]">
-            <span>List your NFT ?</span>
+            <span>List your NFT for Sale ?</span>
             <span style={{ color: 'red' }}>*</span>
           </span>
         </h2>

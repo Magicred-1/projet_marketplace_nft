@@ -1,7 +1,6 @@
 import React from 'react';
 
 const NFTBidDetails = ({ nft_uri, nft_name, nft_collection_name, nft_image }) => {
-const ipfs_link = `https://ipfs.io/ipfs/${nft_uri}`;
 
 return (
     <div className="self-stretch h-[41.94rem] flex flex-col p-[0.63rem] box-border items-center justify-start gap-[0.63rem] text-center text-[1.25rem] text-white font-ttoctosquares-regular">
