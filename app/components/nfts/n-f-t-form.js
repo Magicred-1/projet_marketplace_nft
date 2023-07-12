@@ -13,13 +13,13 @@ const NFTForm = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  const [listedNFT, setListedNFT] = useState(null);
+  const [listedNFT, setListedNFT] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
 
-  const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
+  const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
   const contractABI = abi;
   // const INFURA_SECRET = String(process.env.INFURA_SECRET);
   // const INFURA_PROJECT_ID = String(process.env.INFURA_PROJECT_ID);
@@ -55,14 +55,41 @@ const NFTForm = () => {
 
   const uploadImageToIPFS = async (file) => {
     try {
-      const { cid } = await ipfs.add(file);
-      return cid.toString();
+      const imageUploadResult = await ipfs.add(file);
+
+      // // we verify that the image hasn't been uploaded before
+      // // if it has, we return a error
+      // if (imageUploadResult.path) {
+      //   const imageHash = imageUploadResult.path.split('/')[2];
+      //   const imageURI = `https://ipfs.io/ipfs/${imageHash}`;
+      //   const imageExists = await ipfs.pin.ls(imageURI);
+
+      //   if (imageExists.length > 0) {
+      //     setError('Image has already been uploaded to IPFS.');
+      //     throw new Error('Image has already been uploaded to IPFS.');
+      //   }
+      // }
+
+
+      const metadataURI = {
+        name,
+        description,
+        image: `https://ipfs.io/ipfs/${imageUploadResult.cid.toString()}`,
+        price
+      };
+
+      const metadataUploadResult = await ipfs.add(JSON.stringify(metadataURI));
+  
+      console.log('Image IPFS CID:', imageUploadResult);
+      console.log('Metadata IPFS CID:', metadataUploadResult);
+  
+      return { metadataUploadResult, imageUploadResult };
     } catch (error) {
-      console.error('Error uploading image to IPFS:', error);
-      setError('Error uploading image to IPFS.');
+      console.error('Error uploading image or metadata to IPFS:', error);
+      setError('Error uploading image or metadata to IPFS.');
       throw error;
     }
-  };
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -138,10 +165,12 @@ const NFTForm = () => {
       }
 
       // Upload image to IPFS
-      const imageCID = await uploadImageToIPFS(imageFile);
+      const { metadataUploadResult, imageUploadResult } = await uploadImageToIPFS(imageFile);
 
       // Convert the price to the required format (e.g., from Ether to Wei)
       const formattedPrice = price;
+
+      const tokenURI = metadataUploadResult.cid.toString();
 
       // Connect to the smart contract
       const contract = new ethers.Contract(contractAddress, contractABI, provider.getSigner());
@@ -149,16 +178,16 @@ const NFTForm = () => {
       const connectedWalletAddress = accounts[0];
       const localStorageWalletAddress = JSON.parse(localStorage.getItem('user')).walletAddress;
 
-      setSuccess('Waiting for the transaction confirmation...')
+      setSuccess('Waiting for the transaction confirmation...');
 
-      const tx = await contract.createNFT(name, description, imageCID, formattedPrice, listedNFT);
+      const tx = await contract.createNFT(name, description, tokenURI, formattedPrice, listedNFT);
 
       setSuccess('Creating NFT, please wait...');
 
       await tx.wait();
 
-      setSuccess('NFT created successfully!');
-      setImagePreview(`https://ipfs.io/ipfs/${imageCID}`);
+      setSuccess('NFT created successfully!' + '\n' + 'You can view it on your profile page.');
+      setImagePreview(`https://ipfs.io/ipfs/${imageUploadResult.cid.toString()}`);
     } catch (error) {
       console.error('Error while creating NFT:', error);
       setError('Error while creating NFT.');
@@ -224,7 +253,7 @@ const NFTForm = () => {
               onChange={(e) => setPrice(e.target.value)}
           />
           <div className="self-stretch relative text-[1.25rem] leading-[4.97rem] flex items-center h-[2.19rem] shrink-0">
-            Price of your NFT in ETH.
+            Price of your NFT in DDT.
           </div>
         </div>
         <div className="self-stretch h-[7.56rem] flex flex-col p-[0.63rem] box-border items-start justify-start gap-[0.63rem]">

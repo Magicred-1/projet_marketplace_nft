@@ -21,7 +21,7 @@ const TextFooter = () => {
           className="cursor-pointer py-[0rem] px-[0.63rem] bg-blue-400 rounded-xl box-border w-[14.25rem] h-[2.13rem] 
           flex flex-row items-center justify-center 
           border-[1px] border-solid border-white"
-          onClick={() => Router.push("/marketplace")}
+          onClick={() => Router.push("https://github.com/Magicred-1/projet_marketplace_nft/")}
         >
           <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left">
             GITHUB

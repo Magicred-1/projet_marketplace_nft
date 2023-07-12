@@ -7,7 +7,7 @@ const MarketplaceStats = () => {
     const [NFTOwners, setNFTOwners] = useState("0");
 
     const contractAbi = abi;
-    const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
+    const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
 
     const getNumberOfNFTsForSales = async () => {
         try {

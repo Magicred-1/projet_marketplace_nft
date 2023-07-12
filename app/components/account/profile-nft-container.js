@@ -1,11 +1,17 @@
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ERC20Abi } from "../../abi/erc20.json"
 
 const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, address, abi}) => {
     const contractAddress = address;
     const contractAbi = abi;
+
+    const ERC20ContractAddress = "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585"
+    const ERC20_ABI = ERC20Abi;
+
     const [listedState, setListedState] = useState(nftListed);
     const [priceState, setPriceState] = useState(nftPrice);
+    const [nftImageState, setNftImageState] = useState(nftImage);
 
     const unlistingNFT = async (nftID) => {
         try {
@@ -23,8 +29,14 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
             // Connect to the smart contract
             const signer = provider.getSigner();
             const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-    
-            // Call the smart contract to list the NFT
+
+            const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20_ABI, signer);
+
+            // Approve the contract to spend the specified amount of ERC20 tokens
+            const approveTx = await ERC20Contract.approve(contractAddress, priceState.toString());
+            await approveTx.wait();
+            
+            // Call the smart contract to unlist the NFT
             const transaction = await contract.unlistNFT(nftID);
     
             // Wait for the transaction to finish
@@ -53,9 +65,15 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
             // Connect to the smart contract
             const signer = provider.getSigner();
             const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+
+            const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20Abi, signer);
+
+            // Approve the contract to spend the specified amount of ERC20 tokens
+            const approveTx = await ERC20Contract.approve(contractAddress, priceState.toString());
+            await approveTx.wait();
     
             // Call the smart contract to list the NFT
-            const transaction = await contract.listNFT(nftID, priceState.toString());
+            const transaction = await contract.listNFT(nftID, priceState);
     
             // Wait for the transaction to finish
             await transaction.wait();
@@ -66,12 +84,30 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
         }
     };
 
+    async function getNFTImage(metadataURI) {
+        const response = await fetch(metadataURI);
+
+        if (!response.ok) {
+            console.error("Failed to get NFT image");
+            return;
+        }
+        else {
+            const metadata = await response.json();
+            setNftImageState(metadata.image);
+        }
+    } 
+
+    useEffect(() => {
+        getNFTImage(nftImage);
+    }, []);
+        
+
     return (
         <div className="rounded-mini bg-midnightblue box-border w-[17.75rem] flex flex-col px-[1.19rem] items-center justify-center gap-[0.63rem] text-left text-[1.25rem] text-white font-ttoctosquares-regular border-[5px] border-solid border-white">
         <img
             className="rounded-t-mini rounded-b-none w-[17.06rem] h-[13.63rem] object-cover z-[1]"
             alt={nftName}
-            src={nftImage}
+            src={nftImageState}
         />
         <div
             className="w-[16.31rem] h-[9.88rem] flex flex-col items-center justify-center z-[0]"
@@ -82,7 +118,7 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
             <div className="self-stretch h-[3.56rem] flex flex-row items-center justify-center gap-[0.06rem] text-center">
             <div className="self-stretch w-[10.56rem] flex flex-row p-[0.63rem] box-border items-center justify-start">
                 <div className="relative leading-[4.97rem] flex items-center justify-center w-[4.81rem] h-[2.94rem] shrink-0">
-                {priceState} ETH
+                {priceState} DDT
                 </div>
             </div>
             {!listedState ? (

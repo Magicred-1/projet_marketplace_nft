@@ -8,7 +8,7 @@ import ProfileCreations from "./profile-creations";
 
 const ProfileDetails = () => {
     const contractAbi = abi;
-    const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
+    const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
 
     const [profile, setProfile] = useState({
         userID: "1234567890",
@@ -69,7 +69,7 @@ const ProfileDetails = () => {
                     MY PROFILE
                 </div>
 
-                <div className="flex flex-row py-[0.63rem] pl-[8.81rem] pr-[4.81rem] box-border items-start justify-start gap-[4.81rem] text-left text-[1.3rem] h-[10.94rem] self-stretch flex-wrap md:flex-nowrap">
+                <div className="flex h-auto flex-row py-[0.63rem] pl-[8.81rem] pr-[4.81rem] box-border items-start justify-start gap-[4.81rem] text-left text-[1.3rem] h-[10.94rem] self-stretch flex-wrap md:flex-nowrap">
 
                     {/* User ID and Wallet Address sections */}
                     <div className="w-full flex flex-col md:flex-row gap-4">

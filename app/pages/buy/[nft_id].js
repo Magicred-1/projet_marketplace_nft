@@ -1,6 +1,7 @@
 import HeaderComponent from "../../components/global/header-component";
 import Head from "next/head";
 import { abi } from "../../abi/abi.json";
+import { ERC20Abi } from "../../abi/erc20.json";
 import { ethers } from "ethers";
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router'
@@ -13,12 +14,15 @@ const BuyPage = () => {
     const [provider, setProvider] = useState(null);
     const [nftName, setNFTName] = useState("Izuku Midoriya");
     const [nftDescription, setNFTDescription] = useState("The main protagonist of the series. He is a student at U.A. High School training to become a Pro Hero. He dreams of one day becoming a great hero like his idol, All Might.");
-    const [nftPrice, setNFTPrice] = useState("1");
-    const [nftMetadataURI, setNFTMetadataURI] = useState("https://ipfs.io/ipfs/QmNuCBV3qxgHx3hAmavQ67vevEQLs4S7993wcWeqPykTZv");
+    const [nftPrice, setNFTPrice] = useState(1);
     const [message, setMessage] = useState("");
+    const [nftImageState, setNftImageState] = useState("");
 
+    const contractAddress = "0x5aee4CE92624f095E490591135EFaC9231C271db";
     const contractAbi = abi;
-    const contractAddress = "0x6d37ECf468c94E98D277207Df4da662721cdEF61";
+
+    const ERC20ContractAddress = "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585"
+    const ERC20_ABI = ERC20Abi;
     
     useEffect(() => {
         const initialize = async () => {
@@ -49,12 +53,25 @@ const BuyPage = () => {
                     setNFTName(name);
                     setNFTDescription(description);
                     setNFTPrice(price.toString());
-                    setNFTMetadataURI(metadataURI);
+                    getNFTImage(metadataURI);
                 } catch (error) {
                     console.error('Error retrieving NFT details:', error);
                 }
             }
         };
+
+        async function getNFTImage(metadataURI) {
+            const response = await fetch(metadataURI);
+        
+            if (!response.ok) {
+                console.error("Failed to get NFT image");
+                return;
+            }
+            else {
+                const metadata = await response.json();
+                setNftImageState(metadata.image);
+            }
+        } 
         
         if (provider && nft_id) {
             getNFTDetails();
@@ -66,24 +83,28 @@ const BuyPage = () => {
         // Check if the user is connected to the wallet
         const accounts = await provider.listAccounts();
 
-        if (accounts.length === 0) {
-            setMessage("Please connect to the wallet.");
+        if (accounts.length === 0 || !provider) {
+            setMessage("Please connect to your wallet.");
             return;
         }
 
-        // Check if the user has enough ETH to buy the NFT
-        const balance = await provider.getBalance(accounts[0]);
-        const balanceInEth = ethers.utils.formatEther(balance);
+        const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20_ABI, provider.getSigner());
+        
+        // We verify if the user has enough DDT tokens to buy the NFT
+        if (nftPrice > 0) {
+            const balance = await ERC20Contract.balanceOf(accounts[0]);
+            const balanceNumber = ethers.utils.formatEther(balance);
 
-        if (balanceInEth < nftPrice) {
-            setMessage("You don't have enough ETH to buy this NFT.");
-            return;
+            if (balanceNumber < nftPrice) {
+                setMessage("You don't have enough DDT tokens to buy this NFT.")
+                return;
+            }
         }
-
+        
         // Connect to the smart contract
         const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
 
-        // Call the smart contract to buy the NFT
+        // Call the smart contract to buy the NFT with DDT tokens
         const transaction = await contract.buyNFT(nft_id, { value: ethers.utils.parseEther(nftPrice) });
 
         setMessage("Processing the transaction...");
@@ -100,7 +121,7 @@ const BuyPage = () => {
         <Head>
             <title>Digital Delirium - Bid on NFT {nftName}#{nft_id}</title>
             <meta name="description" content="Bid" />
-            <link rel="icon" href="../favicon.ico" />
+            <link rel="icon" href="../../../favicon.ico" />
         </Head>
         <main className="relative bg-white w-full flex flex-col items-center justify-center text-left text-[1.25rem] text-white font-ttoctosquares-regular">
             <main className="self-stretch overflow-hidden flex flex-col items-center justify-center text-center text-[4.38rem] text-white font-ttoctosquares-regular">
@@ -126,7 +147,7 @@ const BuyPage = () => {
                     <img
                         className="rounded-t-mini rounded-b-none w-[17.06rem] h-[13.63rem] object-cover z-[1]"
                         alt=""
-                        src={nftMetadataURI}
+                        src={nftImageState}
                     />
                     <div className="w-[16.31rem] h-[9.88rem] flex flex-col items-center justify-center z-[0]">
                         <div className="relative leading-[4.97rem] text-deeppink-200 flex items-center justify-center w-[16.56rem] h-[2.69rem] shrink-0">
@@ -137,7 +158,7 @@ const BuyPage = () => {
                             <div className="relative leading-[4.97rem] flex items-center w-[15.94rem] h-[2.94rem] shrink-0">
                             <span className="[line-break:anywhere] w-full">
                                 <span>{`Buying Price : `}</span>
-                                <span className="text-deeppink-200">{nftPrice} ETH</span>
+                                <span className="text-deeppink-200">{nftPrice} DDT</span>
                             </span>
                             </div>
                         </div>

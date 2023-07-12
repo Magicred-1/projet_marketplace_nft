@@ -66,7 +66,7 @@ const ProfileCreations = ({abi, address}) => {
             ))
             ) : (
             <div className="relative w-full max-w-[20rem] bg-white rounded-lg p-4 shadow-md">
-                <p className="text-lg">No NFTs found</p>
+                <p className="text-lg text-black grid-cols-4">No NFTs found</p>
                 <button
                 className="cursor-pointer focus:outline-none bg-blue-500 text-white font-ttoctosquares-regular rounded-full py-2 px-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
                 onClick={() => {

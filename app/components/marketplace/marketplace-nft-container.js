@@ -1,11 +1,32 @@
 import Router from "next/router";
+import { useEffect, useState } from "react";
+
 const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
+  const [nftImageState, setNftImageState] = useState("");
+
+  async function getNFTImage(metadataURI) {
+    const response = await fetch(metadataURI);
+
+      if (!response.ok) {
+          console.error("Failed to get NFT image");
+          return;
+      }
+      else {
+          const metadata = await response.json();
+          setNftImageState(metadata.image);
+      }
+  } 
+
+  useEffect(() => {
+      getNFTImage(nftImage);
+  }, []);
+
   return (
     <div className="rounded-mini bg-midnightblue box-border w-[17.75rem] flex flex-col px-[1.19rem] items-center justify-center gap-[0.63rem] text-left text-[1.25rem] text-white font-ttoctosquares-regular border-[5px] border-solid border-white">
       <img
         className="rounded-t-mini rounded-b-none w-[17.06rem] h-[13.63rem] object-cover z-[1]"
         alt={nftName}
-        src={nftImage}
+        src={nftImageState}
       />
       <div
         className="w-[16.31rem] h-[9.88rem] flex flex-col items-center justify-center z-[0]"
@@ -16,7 +37,7 @@ const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
         <div className="self-stretch h-[3.56rem] flex flex-row items-center justify-center gap-[0.06rem] text-center">
           <div className="self-stretch w-[10.56rem] flex flex-row p-[0.63rem] box-border items-center justify-start">
             <div className="relative leading-[4.97rem] flex items-center justify-center w-[4.81rem] h-[2.94rem] shrink-0">
-              {nftPrice} ETH
+              {nftPrice} DDT
             </div>
           </div>
           <button className="cursor-pointer [border:none] 
