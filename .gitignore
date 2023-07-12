@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+.idea/
 /.pnp
 .pnp.js
 
@@ -13,7 +14,7 @@ node_modules/
 /out/
 
 # production
-/build
+/app/build/contracts/*.json
 
 # misc
 .DS_Store
@@ -34,4 +35,4 @@ yarn-error.log*
 # vercel
 .vercel
 
-app/.next
+/app/.next
