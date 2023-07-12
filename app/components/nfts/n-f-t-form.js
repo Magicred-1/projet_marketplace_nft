@@ -107,6 +107,16 @@ const NFTForm = () => {
       return;
     }
 
+    if (imageFile.size > 1000000) {
+      setError('Image size must be less than 1 MB.\n');
+      return;
+    }
+
+    if (imageFile.type !== 'image/jpeg' && imageFile.type !== 'image/png') {
+      setError('Image type must be either JPEG or PNG.\n');
+      return;
+    }
+
     if (!name || !price || !imageFile) {
       setError('Please fill in all the required fields.\n');
       return;
