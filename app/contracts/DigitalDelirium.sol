@@ -229,6 +229,8 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         emit NFTAuctionCreated(tokenId, startingPrice, auction.endTime);
     }
 
+    // TODO: Get info on Auctions
+
     function endNFTAuction(uint256 tokenId) external {
         Auction storage auction = _auctions[tokenId];
         require(block.timestamp >= auction.endTime, "Auction not ended yet");

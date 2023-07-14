@@ -12,9 +12,10 @@ const BidPage = () => {
     const nft_id = router.query.nft_id;
     
     const [provider, setProvider] = useState(null);
-    const [nftName, setNFTName] = useState("Izuku Midoriya");
-    const [nftDescription, setNFTDescription] = useState("The main protagonist of the series. He is a student at U.A. High School training to become a Pro Hero. He dreams of one day becoming a great hero like his idol, All Might.");
+    const [nftName, setNFTName] = useState("Easter Egg");
+    const [nftDescription, setNFTDescription] = useState("");
     const [nftPrice, setNFTPrice] = useState(1);
+    const [bidPrice, setBidPrice] = useState(0);
     const [message, setMessage] = useState("");
     const [nftImageState, setNftImageState] = useState("");
 
@@ -107,7 +108,7 @@ const BidPage = () => {
         const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
 
         // Call the smart contract to buy the NFT with DDT tokens
-        const transaction = await contract.buyNFT(nft_id, { value: ethers.utils.parseEther(nftPrice) });
+        const transaction = await contract.bidNFT(nft_id, { value: ethers.utils.parseEther(bidPrice.toString()) });
 
         setMessage("Processing the transaction...");
 
@@ -182,12 +183,21 @@ const BidPage = () => {
                         type="text"
                         maxLength={100}
                         minLength={1}
+                        onChange={
+                            (event) => {
+                                setBidPrice(event.target.value);
+                            }
+                        }
                     />
                     </div>
                     <div className="w-[49.94rem] h-[7.56rem] flex flex-row py-[0.63rem] px-[1.88rem] box-border items-center justify-center">
 
                 <button className="cursor-pointer p-[0.63rem] bg-deeppink-200 rounded-xl box-border w-[26rem] h-[2.75rem] flex flex-col items-center justify-center border-[1px] border-solid border-white"
-                    onClick={bidNFT}
+                    onClick={
+                        () => {
+                            bidNFT(nft_id, bidPrice);
+                        }
+                    }
                 >
                     <div className="relative text-[1.5rem] leading-[4.97rem] font-ttoctosquares-regular text-white text-left">
                         Bid

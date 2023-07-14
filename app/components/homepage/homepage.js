@@ -20,7 +20,7 @@ const Homepage = () => {
 
                   <div className="relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-left"
                     onClick={() => window.location.href = "/login"}>
-                    SIGN IN
+                    LOGIN
                   </div>
                 </button>
               </nav>
