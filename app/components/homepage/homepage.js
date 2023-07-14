@@ -123,7 +123,12 @@ const Homepage = () => {
 
         <div className="flex items-center justify-center">
           <button className="cursor-pointer p-[0.63rem] bg-deeppink-100 rounded-11xl box-border w-[18.81rem] h-[3.25rem] overflow-hidden flex flex-row items-start justify-start gap-[0.63rem] border-[1px] border-solid border-black">
-            <div className="self-stretch relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-center flex items-center justify-center w-[15rem] shrink-0">
+            <div className="self-stretch relative text-[1.25rem] leading-[3.75rem] font-ttoctosquares-regular text-white text-center flex items-center justify-center w-[15rem] shrink-0"
+            onClick={
+              () => {
+                window.open("/marketplace", "_self");
+              }
+            }>
               SEE COLLECTION
             </div>
             <div className="rounded-31xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] w-[2rem] h-[1.88rem] shrink-0 overflow-hidden flex flex-row p-[0.63rem] box-border items-center justify-center">

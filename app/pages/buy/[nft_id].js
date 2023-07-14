@@ -26,101 +26,130 @@ const BuyPage = () => {
     
     useEffect(() => {
         const initialize = async () => {
-            if (typeof window !== 'undefined' && window.ethereum) {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-                    setProvider(web3Provider);
-                } catch (error) {
-                    console.error('Error connecting to the Ethereum provider:', error);
-                    setError('Error while connecting to the Ethereum provider.');
-                }
+        if (typeof window !== "undefined" && window.ethereum) {
+            try {
+                await window.ethereum.request({ method: "eth_requestAccounts" });
+                const web3Provider = new ethers.providers.Web3Provider(
+                    window.ethereum
+                );
+                setProvider(web3Provider);
+            } catch (error) {
+                console.error(
+                    "Error connecting to the Ethereum provider:",
+                    error
+                );
+                setMessage("Error while connecting to the Ethereum provider.");
             }
+        }
         };
-
+    
         const getNFTDetails = async () => {
-            if (provider && nft_id) {
-                try {
-                    const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
-
-                    const foundNFT = await contract.getNFTDetails(nft_id);
-
-                    if (!foundNFT) {
-                        window.location.href = "/404";
-                        return;
-                    }
-
-                    console.log("NFT Details:", foundNFT);
-
-                    const { name, description, price, metadataURI } = foundNFT;
-
-                    const formattedPrice = ethers.utils.formatEther(price);
-
-                    setNFTName(name);
-                    setNFTDescription(description);
-                    setNFTPrice(formattedPrice);
-                    getNFTImage(metadataURI);
-                } catch (error) {
-                    console.error('Error retrieving NFT details:', error);
-                }
-            }
-        };
-
-        async function getNFTImage(metadataURI) {
-            const response = await fetch(metadataURI);
-        
-            if (!response.ok) {
-                console.error("Failed to get NFT image");
+        if (provider && nft_id) {
+            try {
+            const contract = new ethers.Contract(
+                contractAddress,
+                contractAbi,
+                provider.getSigner()
+            );
+    
+            const foundNFT = await contract.getNFTDetails(nft_id);
+    
+            if (!foundNFT) {
+                window.location.href = "/404";
                 return;
             }
-            else {
-                const metadata = await response.json();
-                setNftImageState(metadata.image);
+    
+            const { name, description, price, metadataURI } = foundNFT;
+    
+            const formattedPrice = ethers.utils.formatEther(price);
+    
+            setNFTName(name);
+            setNFTDescription(description);
+            setNFTPrice(formattedPrice);
+            getNFTImage(metadataURI);
+            } catch (error) {
+                console.error("Error retrieving NFT details:", error);
             }
-        } 
-        
+        }
+        };
+    
+        async function getNFTImage(metadataURI) {
+        try {
+        const response = await fetch(metadataURI);
+    
+        if (!response.ok) {
+            console.error("Failed to get NFT image");
+            return;
+        } else {
+            const metadata = await response.json();
+            setNftImageState(metadata.image);
+        }
+        } catch (error) {
+            console.error("Failed to get NFT image:", error);
+        }
+        }
+    
         if (provider && nft_id) {
-            getNFTDetails();
+        getNFTDetails();
         }
         initialize();
     }, [provider, nft_id]);
-
+    
     const buyNFT = async (nft_id) => {
-        // Check if the user is connected to the wallet
-        const accounts = await provider.listAccounts();
-
-        if (accounts.length === 0 || !provider) {
+        try {
+        if (!provider) {
             setMessage("Please connect to your wallet.");
             return;
         }
-
-        const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20_ABI, provider.getSigner());
-        
-        // We verify if the user has enough DDT tokens to buy the NFT
-        if (nftPrice > 0) {
-            const balance = await ERC20Contract.balanceOf(accounts[0]);
-            const balanceNumber = ethers.utils.formatEther(balance);
-
-            if (balanceNumber < nftPrice) {
-                setMessage("You don't have enough DDT tokens to buy this NFT.")
-                return;
-            }
+    
+        // Check if the user is connected to the wallet
+        const accounts = await provider.listAccounts();
+    
+        if (accounts.length === 0) {
+            setMessage("Please connect to your wallet.");
+            return;
         }
-        
+    
         // Connect to the smart contract
-        const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
+        const contract = new ethers.Contract(
+            contractAddress,
+            contractAbi,
+            provider.getSigner()
+        );
+    
+        const ERC20Contract = new ethers.Contract(
+            ERC20ContractAddress,
+            ERC20_ABI,
+            provider.getSigner()
+        );
+    
+        // Get the user's token balance
+        const userTokenBalance = await ERC20Contract.balanceOf(accounts[0]);
+    
+        const formattedUserTokenBalance = ethers.utils.formatEther(
+            userTokenBalance
+        );
 
+        // Check if the user has enough tokens to buy the NFT
+        if (parseFloat(formattedUserTokenBalance) < parseFloat(nftPrice)) {
+            setMessage("You don't have enough tokens to buy this NFT.");
+            return;
+        }
+    
         // Call the smart contract to buy the NFT with DDT tokens
-        const transaction = await contract.buyNFT(nft_id, { value: ethers.utils.parseEther(nftPrice) });
-
+        const transaction = await contract.buyNFT(nft_id);
         setMessage("Processing the transaction...");
-
+    
         // Wait for the transaction to finish
         await transaction.wait();
-
+    
         setMessage("The transaction was successful! The NFT is now yours.");
-
+        } catch (error) {
+        console.error("Failed to buy NFT:", error);
+        setMessage("Failed to buy the NFT. Please try again.");
+        }
     };
+    
 
     return (
         <>
@@ -163,8 +192,8 @@ const BuyPage = () => {
                         <div className="self-stretch w-[16.25rem] flex flex-row p-[0.63rem] box-border items-center justify-center">
                             <div className="relative leading-[4.97rem] flex items-center w-[15.94rem] h-[2.94rem] shrink-0">
                             <span className="[line-break:anywhere] w-full">
-                                <span>{`Buying Price :`}</span>
-                                <span className="text-deeppink-200">{nftPrice} <br></br>DDT</span>
+                                <span>Buying Price : </span>
+                                <span className="text-deeppink-200">{nftPrice} DDT</span>
                             </span>
                             </div>
                         </div>

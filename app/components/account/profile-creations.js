@@ -34,8 +34,24 @@ const ProfileCreations = ({abi, address}) => {
 
         const creations = await contract.getAllCreatorNFTsDetails(connectedWalletAddress);
 
-        setCreations(creations);
-        console.log(creations);
+        const verifyOwnership = async (creations) => {
+            const verifiedCreations = [];
+
+            for (let i = 0; i < creations.length; i++) {
+                const creation = creations[i];
+                const owner = await contract.ownerOf(creation.tokenId);
+                if (owner === connectedWalletAddress) {
+                    verifiedCreations.push(creation);
+                }
+            }
+
+            return verifiedCreations;
+        };
+
+        const verifiedCreations = await verifyOwnership(creations);
+
+        setCreations(verifiedCreations);
+        console.log(verifiedCreations);
     };
 
     useEffect(() => {
