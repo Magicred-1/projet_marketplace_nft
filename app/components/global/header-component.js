@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import RestrictedPage from "../restrict/restrictedpage-component";
+import { ethers } from "ethers";
+import { ERC20Abi } from "../../abi/erc20.json";
 
 const HeaderComponent = () => {
     const [isConnected, setIsConnected] = useState(false);
@@ -9,6 +11,33 @@ const HeaderComponent = () => {
         const isConnected = localStorage.getItem("user") !== null;
         setIsConnected(isConnected);
     }, []);
+
+const abi = ERC20Abi;
+
+const [DDTBalance, setDDTBalance] = useState(0);
+
+const getDDTBalance = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Connect to the smart contract
+    const contract = new ethers.Contract(
+        "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585",
+        abi,
+        provider.getSigner()
+    );
+
+    const accounts = await window.ethereum.request({ method: "eth_accounts" });
+
+    const balance = await contract.balanceOf(accounts[0]);
+
+    console.log("DDT Balance:", balance.toString());
+
+    setDDTBalance(balance.toString());
+};
+
+useEffect(() => {
+    getDDTBalance();
+}, []);
 
   return (
     <>
@@ -28,7 +57,13 @@ const HeaderComponent = () => {
             className="cursor-pointer py-1 px-2 bg-deeppink-100 font-ttoctosquares-regular rounded-xl text-white"
             onClick={() => Router.push("/profile")}
           >
-            PROFILE
+
+            {
+              /* If the user more than 5 numbers we subtring like 999...999 DDT */
+              DDTBalance.length > 4 ? 
+              DDTBalance.substring(0, 5) + "..." + DDTBalance.substring(DDTBalance.length - 5, DDTBalance.length) + " DDT" : 
+              DDTBalance + " DDT"
+            }
           </button>
           <button
             className="cursor-pointer py-1 px-2 bg-blue-500 font-ttoctosquares-regular rounded-xl text-white"

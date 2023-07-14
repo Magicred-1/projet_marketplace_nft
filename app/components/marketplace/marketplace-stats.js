@@ -7,7 +7,7 @@ const MarketplaceStats = () => {
     const [NFTOwners, setNFTOwners] = useState("0");
 
     const contractAbi = abi;
-    const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
+    const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
 
     const getNumberOfNFTsForSales = async () => {
         try {
@@ -42,7 +42,7 @@ const MarketplaceStats = () => {
             provider.getSigner()
         );
 
-        const numberOfOwners = await contract.getNumberOfItemsOwners();
+        const numberOfOwners = await contract.getNumberOfNFTsHolders();
 
         console.log("Number of Items Owners:", numberOfOwners.toString());
 

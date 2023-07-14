@@ -23,20 +23,20 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
     }
 
     struct Bid {
-        uint256 tokenId;
         uint256 amount;
         address bidder;
     }
 
     struct Auction {
         uint256 tokenId;
-        uint256 amount;
-        address bidder;
-        uint256 startTime;
+        uint256 startingPrice;
         uint256 endTime;
+        address seller;
+        Bid highestBid;
     }
 
     mapping(uint256 => Bid[]) private _bids;
+    mapping(uint256 => Auction) private _auctions;
     mapping(uint256 => NFT) private _nfts;
     mapping(uint256 => address) private _nftCreators;
 
@@ -47,6 +47,8 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
     event NFTUnlisted(uint256 indexed tokenId);
     event NFTSold(uint256 indexed tokenId, address indexed buyer, uint256 price);
     event NFTBid(uint indexed tokenId, address indexed bidder, uint256 price);
+    event NFTAuctionCreated(uint256 indexed tokenId, uint256 startTime, uint256 endTime);
+    event NFTAuctionEnded(uint256 indexed tokenId, address indexed winner, uint256 price);
 
     constructor(address erc20TokenAddress) ERC721("Digital Delirium", "DDLR") {
         _erc20Token = IERC20(erc20TokenAddress);
@@ -118,7 +120,6 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         return result;
     }
 
-
     function listNFT(uint256 tokenId, uint256 price) external {
         require(_exists(tokenId), "NFT does not exist");
         require(ownerOf(tokenId) == msg.sender, "Not the owner of the NFT");
@@ -161,16 +162,12 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         address seller = ownerOf(tokenId);
         uint256 tokenPrice = nft.price;
 
-        // Calculate the fee amount
         uint256 feeAmount = (tokenPrice * feePercentage) / 100;
-
-        // Transfer the ERC20 tokens from the buyer to the seller (excluding the fee)
+        // Check if the buyer has enough ERC20 tokens and transfer the fee amount
+        require(IERC20(_erc20Token).balanceOf(msg.sender) >= feeAmount, "Not enough DDT tokens to buy");
+        require(IERC20(_erc20Token).transferFrom(msg.sender, owner(), feeAmount), "Token transfer failed");
         require(IERC20(_erc20Token).transferFrom(msg.sender, seller, tokenPrice), "Token transfer failed");
 
-        // Transfer the fee amount to the contract owner
-        require(IERC20(_erc20Token).transferFrom(msg.sender, owner(), feeAmount), "Token transfer failed");
-
-        // Transfer the NFT from the seller to the buyer
         _transfer(seller, msg.sender, tokenId);
 
         nft.listed = false;
@@ -178,23 +175,97 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         emit NFTSold(tokenId, msg.sender, tokenPrice);
     }
 
-
-    function bidNFT(uint256 tokenId, uint256 bidAmount) external {
+    function bidNFT(uint256 tokenId, uint256 bidAmount) external payable {
         require(_exists(tokenId), "NFT does not exist");
         NFT storage nft = _nfts[tokenId];
-        require(nft.listed, "NFT not listed for sale");
+        require(nft.listed, "NFT not listed for auction");
 
-        Bid[] storage bids = _bids[tokenId];
+        Auction storage auction = _auctions[tokenId];
+        require(block.timestamp <= auction.endTime, "Auction has ended");
+        require(bidAmount > auction.highestBid.amount, "Bid amount too low");
 
-        // If there are no bids yet, create a new one and return
-        if (bids.length == 0) {
-            // Transfer the ERC20 tokens from the bidder to the contract
-            require(IERC20(_erc20Token).transferFrom(msg.sender, address(this), bidAmount), "Token transfer failed");
-
-            bids.push(Bid(tokenId, bidAmount, msg.sender));
-            emit NFTBid(tokenId, msg.sender, bidAmount);
-            return;
+        if (auction.highestBid.bidder != address(0)) {
+            // Refund the previous bidder
+            require(IERC20(_erc20Token).transfer(auction.highestBid.bidder, auction.highestBid.amount), "Token transfer failed");
         }
+
+        // Transfer the ERC20 tokens from the bidder to the contract
+        require(IERC20(_erc20Token).transferFrom(msg.sender, address(this), bidAmount), "Token transfer failed");
+
+        // Update the highest bid
+        auction.highestBid.amount = bidAmount;
+        auction.highestBid.bidder = msg.sender;
+
+        emit NFTBid(tokenId, msg.sender, bidAmount);
+    }
+
+    function putNFTToAuction(
+        uint256 tokenId,
+        uint256 startingPrice,
+        uint256 duration,
+        address seller
+    ) external {
+        require(_exists(tokenId), "NFT does not exist");
+        require(ownerOf(tokenId) == msg.sender, "Not the owner of the NFT");
+        require(duration > 0, "Auction duration must be greater than zero");
+
+        NFT storage nft = _nfts[tokenId];
+        require(!nft.listed, "NFT already listed for sale");
+
+        // Transfer the NFT to the contract
+        _transfer(msg.sender, address(this), tokenId);
+
+        // Create an auction for the NFT
+        Auction memory auction = Auction(
+            tokenId,
+            startingPrice,
+            block.timestamp + duration,
+            seller,
+            Bid(0, address(0))
+        );
+
+        _auctions[tokenId] = auction;
+
+        emit NFTAuctionCreated(tokenId, startingPrice, auction.endTime);
+    }
+
+    function endNFTAuction(uint256 tokenId) external {
+        Auction storage auction = _auctions[tokenId];
+        require(block.timestamp >= auction.endTime, "Auction not ended yet");
+
+        // Transfer the NFT from the contract to the highest bidder
+        _transfer(address(this), auction.highestBid.bidder, tokenId);
+
+        emit NFTAuctionEnded(tokenId, auction.highestBid.bidder, auction.highestBid.amount);
+
+        // Remove the auction
+        delete _auctions[tokenId];
+    }
+
+    function listAllActiveAuctions() external view returns (Auction[] memory) {
+        uint256 totalAuctions = _tokenIdCounter.current();
+        uint256 activeAuctionCount = 0;
+
+        // Count the number of active auctions
+        for (uint256 i = 0; i < totalAuctions; i++) {
+            if (_auctions[i].tokenId != 0) {
+                activeAuctionCount++;
+            }
+        }
+
+        Auction[] memory activeAuctions = new Auction[](activeAuctionCount);
+        uint256 index = 0;
+
+        // Retrieve the active auctions
+        for (uint256 i = 0; i < totalAuctions; i++) {
+            Auction storage auction = _auctions[i];
+            if (auction.tokenId != 0) {
+                activeAuctions[index] = auction;
+                index++;
+            }
+        }
+
+        return activeAuctions;
     }
 
     function totalSupply() public view returns (uint256) {
@@ -211,7 +282,7 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
 
         for (uint256 i = 0; i < totalNFTs; i++) {
             NFT storage nft = _nfts[i];
-            allMetadata[i] = NFT(nft.tokenId, nft.name, nft.description, nft.price, nft.listed, nft.metadataURI);
+            allMetadata[i] = nft;
         }
 
         return allMetadata;
@@ -230,22 +301,30 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         return count;
     }
 
-    function getNumberOfItemsOwners() external view returns (uint256) {
+    function getNumberOfNFTsHolders() external view returns (uint256) {
         uint256 totalNFTs = _tokenIdCounter.current();
         uint256 count = 0;
-        address lastOwner = address(0);
+        address[] memory holders = new address[](totalNFTs);
 
         for (uint256 i = 0; i < totalNFTs; i++) {
-            address currentOwner = ownerOf(i);
-            if (currentOwner != address(0) && currentOwner != lastOwner) {
+            address holder = ownerOf(i);
+            bool holderExists = false;
+
+            for (uint256 j = 0; j < holders.length; j++) {
+                if (holders[j] == holder) {
+                    holderExists = true;
+                    break;
+                }
+            }
+
+            if (!holderExists) {
+                holders[count] = holder;
                 count++;
-                lastOwner = currentOwner;
             }
         }
 
         return count;
     }
-
 
     function _baseURI() internal view virtual override returns (string memory) {
         return "https://ipfs.io/ipfs/";

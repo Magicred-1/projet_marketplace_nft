@@ -5,7 +5,7 @@ import { abi } from "../../abi/abi.json";
 
 const NTFsContainer = () => {
   const contractAbi = abi;
-  const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
+  const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
   const [nftDatas, setNFTDatas] = useState([]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const NTFsContainer = () => {
           tokenId: nftData.tokenId.toNumber(),
           name: nftData.name,
           description: nftData.description,
-          price: nftData.price.toNumber(),
+          price: ethers.utils.formatEther(nftData.price.toString()),
           listed: nftData.listed,
           metadataURI: nftData.metadataURI,
         }));

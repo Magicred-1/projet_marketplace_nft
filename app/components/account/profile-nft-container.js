@@ -11,83 +11,119 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
 
     const [listedState, setListedState] = useState(nftListed);
     const [priceState, setPriceState] = useState(nftPrice);
+    const [renderedPrice, setRenderedPrice] = useState(nftPrice);
     const [nftImageState, setNftImageState] = useState(nftImage);
-    const [message, setMessage] = useState("");
 
-    const unlistingNFT = async (nftID) => {
+    const listingNFT = async (nftID, price) => {
         try {
-            await window.ethereum.enable();
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-    
+        
             // Check if the user is connected to the wallet
             const accounts = await provider.listAccounts();
-    
+        
             if (accounts.length === 0) {
-                console.error("Please connect to the wallet.");
-                return;
+            console.error("Please connect to the wallet.");
+            return;
             }
-    
+        
             // Connect to the smart contract
             const signer = provider.getSigner();
             const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-
+        
             const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20_ABI, signer);
-
-            // Approve the contract to spend the specified amount of ERC20 tokens
-            const approveTx = await ERC20Contract.approve(contractAddress, priceState.toString());
-
-            setMessage("Approving transaction. Please wait...");
-            await approveTx.wait();
-            
-            // Call the smart contract to unlist the NFT
-            const transaction = await contract.unlistNFT(nftID);
-            
-            setMessage(`Unlisted NFT N°${nftID}...`);
-            // Wait for the transaction to finish
-            await transaction.wait();
-
-            setListedState(false);
-            setMessage(`NFT N°${nftID} unlisted successfully.`);
-        }
-        catch (error) {
-            console.error("Failed to unlist NFT:", error);
-        }
-    };
-
-    const listingNFT = async (nftID) => {
-        try {
-            await window.ethereum.enable();
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-    
-            // Check if the user is connected to the wallet
-            const accounts = await provider.listAccounts();
-    
-            if (accounts.length === 0) {
-                console.error("Please connect to the wallet.");
-                return;
+        
+            // Get the user's token balance
+            const userTokenBalance = await ERC20Contract.balanceOf(accounts[0]);
+        
+            const formattedPrice = ethers.utils.parseEther(price);
+        
+            // Check if the user has enough tokens to list the NFT
+            if (userTokenBalance.lt(formattedPrice)) {
+            console.error("You don't have enough tokens to list this NFT.");
+            return;
             }
-    
-            // Connect to the smart contract
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-
-            const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20Abi, signer);
-
-            // Approve the contract to spend the specified amount of ERC20 tokens
-            const approveTx = await ERC20Contract.approve(contractAddress, priceState.toString());
+        
+            console.log("User token balance:", userTokenBalance.toString());
+        
+            // Check user's allowance
+            const allowance = await ERC20Contract.allowance(accounts[0], contractAddress);
+        
+            console.log("User allowance:", allowance.toString());
+        
+            // Check if the user has approved the contract to spend the specified amount of tokens
+            if (allowance.lt(formattedPrice)) {
+            // Approve the contract to spend the specified amount of tokens
+            const approveTx = await ERC20Contract.approve(contractAddress, formattedPrice);
             await approveTx.wait();
-    
+            }
+        
             // Call the smart contract to list the NFT
-            const transaction = await contract.listNFT(nftID, priceState);
-    
+            const transaction = await contract.listNFT(nftID, formattedPrice);
+        
             // Wait for the transaction to finish
             await transaction.wait();
-    
+        
             setListedState(true);
         } catch (error) {
             console.error("Failed to list NFT:", error);
         }
     };
+        
+    const unlistingNFT = async (nftID) => {
+        try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+    
+        // Check if the user is connected to the wallet
+        const accounts = await provider.listAccounts();
+    
+        if (!accounts.length) {
+            console.error("Please connect to the wallet.");
+            return;
+        }
+    
+        // Connect to the smart contract
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+    
+        const ERC20Contract = new ethers.Contract(ERC20ContractAddress, ERC20_ABI, signer);
+    
+        // Get the user's token balance
+        const userTokenBalance = await ERC20Contract.balanceOf(accounts[0]);
+    
+        // Check if the user has enough tokens to unlist the NFT
+        if (userTokenBalance.lt(priceState)) {
+            console.error("You don't have enough tokens to unlist this NFT.");
+            return;
+        }
+    
+        console.log("User token balance:", userTokenBalance.toString());
+    
+        // Check user's allowance
+        const allowance = await ERC20Contract.allowance(accounts[0], contractAddress);
+    
+        console.log("User allowance:", allowance.toString());
+    
+        // Check if the user has approved the contract to spend the specified amount of tokens
+        if (allowance.lt(priceState)) {
+            // Approve the contract to spend the specified amount of tokens
+            const approveTx = await ERC20Contract.approve(contractAddress, priceState);
+            await approveTx.wait();
+        }
+    
+        // Call the smart contract to unlist the NFT
+        const transaction = await contract.unlistNFT(nftID);
+    
+        // Wait for the transaction to finish
+        await transaction.wait();
+    
+        setListedState(false);
+        } catch (error) {
+        console.error("Failed to unlist NFT:", error);
+        }
+    };
+        
 
     async function getNFTImage(metadataURI) {
         const response = await fetch(metadataURI);
@@ -117,13 +153,16 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
             <div
                 className="w-[16.31rem] h-[9.88rem] flex flex-col items-center justify-center z-[0]"
             >
-                <div className="relative leading-[4.97rem] text-deeppink-200 flex items-center  justify-center w-[16.56rem] h-[2.69rem] shrink-0">
+                <div className="relative text-deeppink-200 flex items-center  justify-center w-[16.56rem] h-[2.69rem] shrink-0">
                 {nftName}#{nftID}
                 </div>
                 <div className="self-stretch h-[3.56rem] flex flex-row items-center justify-center gap-[0.06rem] text-center">
                 <div className="self-stretch w-[10.56rem] flex flex-row p-[0.63rem] box-border items-center justify-start">
-                    <div className="relative leading-[4.97rem] flex items-center justify-center w-[4.81rem] h-[2.94rem] shrink-0">
-                    {priceState} DDT
+                    <div className="relative leading-[4.97rem] flex items-center justify-center h-[2.94rem] shrink-0">
+                        {ethers.utils.formatEther(nftPrice)} 
+                        <span className="text-deeppink-200">
+                            &nbsp;DDT
+                        </span>
                     </div>
                 </div>
                 {!listedState ? (
@@ -139,7 +178,7 @@ const ProfileNFTContainer = ({nftName, nftID, nftImage, nftPrice, nftListed, add
                         
                     <button className="cursor-pointer focus:outline-none bg-blue-500 text-white font-ttoctosquares-regular rounded-full py-2 px-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
                         onClick={() => {
-                            listingNFT(nftID);
+                            listingNFT(nftID, priceState);
                         }
                     }
                     >

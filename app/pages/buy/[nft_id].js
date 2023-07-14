@@ -3,8 +3,8 @@ import Head from "next/head";
 import { abi } from "../../abi/abi.json";
 import { ERC20Abi } from "../../abi/erc20.json";
 import { ethers } from "ethers";
+import Router, { useRouter } from 'next/router'
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/router'
 import TextFooter from "../../components/global/text-footer";
 
 const BuyPage = () => {
@@ -12,13 +12,13 @@ const BuyPage = () => {
     const { nft_id } = router.query;
 
     const [provider, setProvider] = useState(null);
-    const [nftName, setNFTName] = useState("Izuku Midoriya");
-    const [nftDescription, setNFTDescription] = useState("The main protagonist of the series. He is a student at U.A. High School training to become a Pro Hero. He dreams of one day becoming a great hero like his idol, All Might.");
-    const [nftPrice, setNFTPrice] = useState(1);
+    const [nftName, setNFTName] = useState("");
+    const [nftDescription, setNFTDescription] = useState("");
+    const [nftPrice, setNFTPrice] = useState("");
     const [message, setMessage] = useState("");
     const [nftImageState, setNftImageState] = useState("");
 
-    const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
+    const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
     const contractAbi = abi;
 
     const ERC20ContractAddress = "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585"
@@ -40,19 +40,25 @@ const BuyPage = () => {
 
         const getNFTDetails = async () => {
             if (provider && nft_id) {
-                // Connect to the smart contract
-                const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
-
                 try {
+                    const contract = new ethers.Contract(contractAddress, contractAbi, provider.getSigner());
+
                     const foundNFT = await contract.getNFTDetails(nft_id);
+
+                    if (!foundNFT) {
+                        window.location.href = "/404";
+                        return;
+                    }
 
                     console.log("NFT Details:", foundNFT);
 
                     const { name, description, price, metadataURI } = foundNFT;
 
+                    const formattedPrice = ethers.utils.formatEther(price);
+
                     setNFTName(name);
                     setNFTDescription(description);
-                    setNFTPrice(price.toString());
+                    setNFTPrice(formattedPrice);
                     getNFTImage(metadataURI);
                 } catch (error) {
                     console.error('Error retrieving NFT details:', error);
@@ -119,7 +125,7 @@ const BuyPage = () => {
     return (
         <>
         <Head>
-            <title>Digital Delirium - Bid on NFT {nftName}#{nft_id}</title>
+            <title>Digital Delirium - Buy NFT {nftName}#{nft_id}</title>
             <meta name="description" content="Bid" />
             <link rel="icon" href="../../../favicon.ico" />
         </Head>
@@ -157,8 +163,8 @@ const BuyPage = () => {
                         <div className="self-stretch w-[16.25rem] flex flex-row p-[0.63rem] box-border items-center justify-center">
                             <div className="relative leading-[4.97rem] flex items-center w-[15.94rem] h-[2.94rem] shrink-0">
                             <span className="[line-break:anywhere] w-full">
-                                <span>{`Buying Price : `}</span>
-                                <span className="text-deeppink-200">{nftPrice} DDT</span>
+                                <span>{`Buying Price :`}</span>
+                                <span className="text-deeppink-200">{nftPrice} <br></br>DDT</span>
                             </span>
                             </div>
                         </div>

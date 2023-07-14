@@ -19,7 +19,7 @@ const NFTForm = () => {
   const [success, setSuccess] = useState(null);
 
 
-  const contractAddress = "0x2ad0f3BF74762357057fdd0f86CBdF6aBC4687eA";
+  const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
   const contractABI = abi;
   // const INFURA_SECRET = String(process.env.INFURA_SECRET);
   // const INFURA_PROJECT_ID = String(process.env.INFURA_PROJECT_ID);
@@ -119,18 +119,13 @@ const NFTForm = () => {
       return;
     }
 
-    if (price < 1) {
-      setError('Price must be greater than 1.\n');
+    if (price < 0.001) {
+      setError('Price must be higher than 0.001 DDT.\n');
       return;
     }
 
     if (price > 100) {
-      setError('Price must be less than 100.\n');
-      return;
-    }
-
-    if (price % 1 !== 0) {
-      setError('Price must be rounded to the nearest integer.\n');
+      setError('Price must be lower than 100 DDT.\n');
       return;
     }
 
@@ -163,7 +158,7 @@ const NFTForm = () => {
       const { metadataUploadResult, imageUploadResult } = await uploadImageToIPFS(imageFile);
 
       // Convert the price to the required format (e.g., from Ether to Wei)
-      const formattedPrice = price;
+      const formattedPrice = ethers.utils.parseEther(price);
 
       const tokenURI = metadataUploadResult.cid.toString();
 
@@ -267,10 +262,7 @@ const NFTForm = () => {
           <option value="false">No</option>
         </select>
       </div>
-        <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
-          <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
-      </div>
-      <div className="self-stretch h-[7.56rem] flex flex-row p-[0.63rem] box-border items-center justify-center gap-[0.63rem]">
+      <div>
         <div className="relative leading-[4.97rem] flex items-center w-[13.25rem] shrink-0">
           <span className="[line-break:anywhere] w-full">
             <span>Image</span>
@@ -295,7 +287,6 @@ const NFTForm = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

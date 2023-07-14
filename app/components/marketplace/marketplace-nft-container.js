@@ -31,13 +31,13 @@ const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
       <div
         className="w-[16.31rem] h-[9.88rem] flex flex-col items-center justify-center z-[0]"
       >
-        <div className="relative leading-[4.97rem] text-deeppink-200 flex items-center  justify-center w-[16.56rem] h-[2.69rem] shrink-0">
+        <div className="relative text-deeppink-200 flex items-center justify-center w-[16.56rem] h-[2.69rem] shrink-0">
           {nftName}#{nftID}
         </div>
         <div className="self-stretch h-[3.56rem] flex flex-row items-center justify-center gap-[0.06rem] text-center">
           <div className="self-stretch w-[10.56rem] flex flex-row p-[0.63rem] box-border items-center justify-start">
-            <div className="relative leading-[4.97rem] flex items-center justify-center w-[4.81rem] h-[2.94rem] shrink-0">
-              {nftPrice} DDT
+            <div className="relative leading-[4.97rem] flex items-center justify-center h-[2.94rem] shrink-0">
+              {nftPrice} <span className="text-deeppink-200">&nbsp;DDT</span>
             </div>
           </div>
           <button className="cursor-pointer [border:none] 
