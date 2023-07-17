@@ -14,12 +14,13 @@ const ProfileNFTContainer = ({
     const contractAddress = address;
     const contractAbi = abi;
 
-    const ERC20ContractAddress = "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585";
+    const ERC20ContractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
     const ERC20_ABI = ERC20Abi;
 
     const [listedState, setListedState] = useState(nftListed);
     const [priceState, setPriceState] = useState(nftPrice);
     const [nftImageState, setNftImageState] = useState(nftImage);
+    const [message, setMessage] = useState("");
 
     const listingNFT = async (nftID, price) => {
         try {
@@ -42,49 +43,31 @@ const ProfileNFTContainer = ({
             signer
         );
 
-        const ERC20Contract = new ethers.Contract(
-            ERC20ContractAddress,
-            ERC20_ABI,
-            signer
-        );
+        console.log(nftID);
 
-        // Get the user's token balance
-        const userTokenBalance = await ERC20Contract.balanceOf(accounts[0]);
+        const formattedPrice = ethers.utils.parseEther(price.toString());
 
-        const formattedPrice = ethers.utils.parseEther(price);
+        console.log(formattedPrice);
 
-        // Check if the user has enough tokens to list the NFT
-        if (userTokenBalance.lt(formattedPrice)) {
-            console.error("You don't have enough tokens to list this NFT.");
-            return;
-        }
+        const approvedAddress = await contract.getApproved(nftID);
 
-        console.log("User token balance:", userTokenBalance.toString());
-
-        // Check user's allowance
-        const allowance = await ERC20Contract.allowance(
-            accounts[0],
-            contractAddress
-        );
-
-        console.log("User allowance:", allowance.toString());
-
-        // Check if the user has approved the contract to spend the specified amount of tokens
-        if (allowance.lt(formattedPrice)) {
-            // Approve the contract to spend the specified amount of tokens
-            const approveTx = await ERC20Contract.approve(
-            contractAddress,
-            formattedPrice
-            );
+        if (approvedAddress !== contractAddress) {
+            setMessage("Approving transaction...");
+            const approveTx = await contract.connect(signer).approve(contractAddress, nftID);
             await approveTx.wait();
         }
 
+        setMessage("Approving transaction...");
+
         // Call the smart contract to list the NFT
-        const transaction = await contract.listNFT(nftID, formattedPrice);
+        const transaction = await contract.listNFT(nftID, formattedPrice,);
+
+        setMessage("Waiting for listing to finish...");
 
         // Wait for the transaction to finish
         await transaction.wait();
 
+        setMessage(`NFT #${nftID} successfully listed!`);
         setListedState(true);
         } catch (error) {
         console.error("Failed to list NFT:", error);
@@ -93,32 +76,34 @@ const ProfileNFTContainer = ({
 
     const unlistingNFT = async (nftID) => {
         try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        // Check if the user is connected to the wallet
-        const accounts = await provider.listAccounts();
+            // Check if the user is connected to the wallet
+            const accounts = await provider.listAccounts();
 
-        if (accounts.length === 0) {
-            console.error("Please connect to the wallet.");
-            return;
-        }
+            if (accounts.length === 0) {
+                console.error("Please connect to the wallet.");
+                return;
+            }
 
-        // Connect to the smart contract
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(
-            contractAddress,
-            contractAbi,
-            signer
-        );
+            // Connect to the smart contract
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(
+                contractAddress,
+                contractAbi,
+                signer
+            );
 
-        // Call the smart contract to unlist the NFT
-        const transaction = await contract.unlistNFT(nftID);
+            // Call the smart contract to unlist the NFT
+            const transaction = await contract.unlistNFT(nftID);
 
-        // Wait for the transaction to finish
-        await transaction.wait();
+            setMessage("Waiting for transaction to finish...")
 
-        setListedState(false);
+            // Wait for the transaction to finish
+            await transaction.wait();
+            setMessage(`NFT #${nftID} successfully unlisted!`);
+            setListedState(false);
         } catch (error) {
             console.error("Failed to unlist NFT:", error);
         }
@@ -157,12 +142,6 @@ const ProfileNFTContainer = ({
 
         const formattedPrice = ethers.utils.parseEther(price);
 
-        // Check if the user has enough tokens to list the NFT
-        if (userTokenBalance.lt(formattedPrice)) {
-            console.error("You don't have enough tokens to list this NFT.");
-            return;
-        }
-
         console.log("User token balance:", userTokenBalance.toString());
 
         // Check user's allowance
@@ -179,8 +158,8 @@ const ProfileNFTContainer = ({
             const approveTx = await ERC20Contract.approve(
             contractAddress,
             formattedPrice
-            );
-            await approveTx.wait();
+        );
+        await approveTx.wait();
         }
 
         // Call the smart contract to list the NFT
@@ -196,7 +175,7 @@ const ProfileNFTContainer = ({
 
         setListedState(true);
         } catch (error) {
-        console.error("Failed to list NFT:", error);
+            console.error("Failed to list NFT:", error);
         }
     };
 
@@ -221,6 +200,11 @@ const ProfileNFTContainer = ({
     }, []);
 
     return (
+        <>
+        {/* Small message */}
+        <div className="text-white text-center text-[1.25rem] font-ttoctosquares-regular">
+            {message}
+        </div>
         <div className="rounded-mini bg-midnightblue box-border w-[17.75rem] flex flex-col px-[1.19rem] items-center justify-center gap-[0.63rem] text-left text-[1.25rem] text-white font-ttoctosquares-regular border-[5px] border-solid border-white">
         <img
             className="rounded-t-mini rounded-b-none w-[17.06rem] h-[13.63rem] object-cover z-[1]"
@@ -280,6 +264,7 @@ const ProfileNFTContainer = ({
             </div>
         </div>
         </div>
+        </>
     );
 };
 

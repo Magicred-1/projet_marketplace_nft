@@ -1,7 +1,12 @@
 import Router from "next/router";
 import { useEffect, useState } from "react";
 
-const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
+const MarketplaceNFTContainer = ({ 
+  nftID, 
+  nftName, 
+  nftPrice, 
+  nftImage 
+}) => {
   const [nftImageState, setNftImageState] = useState("");
 
   async function getNFTImage(metadataURI) {
@@ -9,7 +14,6 @@ const MarketplaceNFTContainer = ({ nftID, nftName, nftPrice, nftImage }) => {
 
       if (!response.ok) {
           console.error("Failed to get NFT image");
-          return;
       }
       else {
           const metadata = await response.json();

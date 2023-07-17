@@ -340,7 +340,7 @@
 		],
 		"name": "bidNFT",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -353,7 +353,7 @@
 		],
 		"name": "buyNFT",
 		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -3,7 +3,7 @@ import Head from "next/head";
 import { abi } from "../../abi/abi.json";
 import { ERC20Abi } from "../../abi/erc20.json";
 import { ethers } from "ethers";
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from "react";
 import TextFooter from "../../components/global/text-footer";
 
@@ -18,10 +18,10 @@ const BuyPage = () => {
     const [message, setMessage] = useState("");
     const [nftImageState, setNftImageState] = useState("");
 
-    const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
+    const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
     const contractAbi = abi;
 
-    const ERC20ContractAddress = "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585"
+    const ERC20ContractAddress = "0xe195a2dD5b76ad462ad6b6801d92ddf2811B9245"
     const ERC20_ABI = ERC20Abi;
     
     useEffect(() => {
@@ -130,8 +130,17 @@ const BuyPage = () => {
             userTokenBalance
         );
 
+        const allowance = await ERC20Contract.allowance(accounts[0], contractAddress);
+
+        if (allowance < nftPrice) {
+            setMessage("Please approve the contract to spend your tokens.");
+            const approveTransaction = await ERC20Contract.connect(provider.getSigner()).approve(contractAddress, nftPrice);
+
+            await approveTransaction.wait();
+        }
+
         // Check if the user has enough tokens to buy the NFT
-        if (parseFloat(formattedUserTokenBalance) < parseFloat(nftPrice)) {
+        if (formattedUserTokenBalance < nftPrice) {
             setMessage("You don't have enough tokens to buy this NFT.");
             return;
         }

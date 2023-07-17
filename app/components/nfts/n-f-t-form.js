@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
-import { config } from 'dotenv';
 import { abi } from "../../abi/abi.json";
-
-config();
 
 const NFTForm = () => {
   const [provider, setProvider] = useState(null);
@@ -19,7 +16,7 @@ const NFTForm = () => {
   const [success, setSuccess] = useState(null);
 
 
-  const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
+  const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549"
   const contractABI = abi;
   // const INFURA_SECRET = String(process.env.INFURA_SECRET);
   // const INFURA_PROJECT_ID = String(process.env.INFURA_PROJECT_ID);
@@ -70,7 +67,6 @@ const NFTForm = () => {
       //   }
       // }
 
-
       const metadataURI = {
         name,
         description,
@@ -93,11 +89,9 @@ const NFTForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError(null);
     setSuccess(null);
     setImagePreview(null);
-
 
     if (!provider || !ipfs) {
       setError('Ethereum provider or IPFS client is not available.\n');
@@ -119,8 +113,8 @@ const NFTForm = () => {
       return;
     }
 
-    if (price < 0.001) {
-      setError('Price must be higher than 0.001 DDT.\n');
+    if (price < 0.000001) {
+      setError('Price must be higher than 0.000001 DDT.\n');
       return;
     }
 
@@ -129,8 +123,16 @@ const NFTForm = () => {
       return;
     }
 
-    if (imageFile.type !== 'image/jpeg' && imageFile.type !== 'image/png') {
-      setError('Image type must be either JPEG or PNG.\n');
+    if (imageFile.type !== 'image/jpeg' && imageFile.type
+    !== 'image/png' && imageFile.type !== 'image/gif' 
+    && imageFile.type !== 'image/webp') {
+      setError('Image type must be either JPEG, PNG, GIF or WebP.\n');
+      return;
+    }
+
+    // Check if the image is larger than 10MB
+    if (imageFile.size > 10485760) {
+      setError('Image size must be less than 10MB.\n');
       return;
     }
 
@@ -162,11 +164,17 @@ const NFTForm = () => {
 
       const tokenURI = metadataUploadResult.cid.toString();
 
+      const connectedWalletAddress = accounts[0];
+
+      const localStorageWalletAddress = JSON.parse(localStorage.getItem('user')).walletAddress;
+
       // Connect to the smart contract
       const contract = new ethers.Contract(contractAddress, contractABI, provider.getSigner());
 
-      const connectedWalletAddress = accounts[0];
-      const localStorageWalletAddress = JSON.parse(localStorage.getItem('user')).walletAddress;
+      if (localStorageWalletAddress !== connectedWalletAddress) {
+        setError('Please connect to the correct wallet.\n');
+        return;
+      }
 
       setSuccess('Waiting for the transaction confirmation...');
 

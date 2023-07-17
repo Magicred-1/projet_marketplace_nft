@@ -65,7 +65,6 @@ const ProfileCreations = ({abi, address}) => {
             {creations.length > 0 ? (
             creations.map((creation, index) => (
                 <div
-                key={index}
                 className="relative w-full max-w-[20rem] p-4 shadow-md"
                 >
                 <ProfileNFTContainer

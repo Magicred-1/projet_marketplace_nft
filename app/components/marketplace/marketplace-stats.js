@@ -7,7 +7,7 @@ const MarketplaceStats = () => {
     const [NFTOwners, setNFTOwners] = useState("0");
 
     const contractAbi = abi;
-    const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
+    const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
 
     const getNumberOfNFTsForSales = async () => {
         try {
@@ -48,7 +48,7 @@ const MarketplaceStats = () => {
 
         setNFTOwners(numberOfOwners.toString());
         } catch (error) {
-        console.error("Error fetching the number of NFT owners", error);
+            console.error("Error fetching the number of NFT owners", error);
         }
     };
 

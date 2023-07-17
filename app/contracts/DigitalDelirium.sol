@@ -131,10 +131,9 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
 
         // Calculate the fee amount
         uint256 feeAmount = (price * feePercentage) / 100;
-        uint256 totalPrice = price + feeAmount;
 
         // Transfer the ERC20 tokens from the buyer to the contract
-        require(IERC20(_erc20Token).transferFrom(msg.sender, address(this), totalPrice), "Token transfer failed");
+        require(IERC20(_erc20Token).transferFrom(msg.sender, address(this), feeAmount), "Token transfer failed");
 
         nft.listed = true;
 

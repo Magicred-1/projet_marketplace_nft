@@ -8,7 +8,7 @@ import ProfileCreations from "./profile-creations";
 
 const ProfileDetails = () => {
     const contractAbi = abi;
-    const contractAddress = "0x82307f030845dbDfb010792c436422344dB650E8";
+    const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
 
     const [profile, setProfile] = useState({
         userID: "1234567890",

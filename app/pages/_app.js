@@ -11,8 +11,8 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "Digital Delirium NFT Marketplace",
-  projectId: "digital-delirium-nft-marketplace",
+  appName: "Digital Delirium",
+  projectId: "716cef2b70365c179f6d85bd82d8d46d",
   chains,
 });
 
