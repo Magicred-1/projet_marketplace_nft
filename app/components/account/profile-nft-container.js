@@ -14,7 +14,7 @@ const ProfileNFTContainer = ({
     const contractAddress = address;
     const contractAbi = abi;
 
-    const ERC20ContractAddress = "0x19B8929ea6091baaD813cBe670fac4496292747F";
+    const ERC20ContractAddress = "0xe195a2dD5b76ad462ad6b6801d92ddf2811B9245";
     const ERC20_ABI = ERC20Abi;
 
     const [listedState, setListedState] = useState(nftListed);
@@ -43,9 +43,15 @@ const ProfileNFTContainer = ({
             signer
         );
 
+        const ERC20_Contract = new ethers.Contract(
+            ERC20ContractAddress,
+            ERC20_ABI,
+            signer
+        );
+
         console.log(nftID);
 
-        const formattedPrice = utils.parseEther(price.toString());
+        const formattedPrice = ethers.utils.parseEther(price.toString());
 
         console.log(formattedPrice);
 
@@ -58,6 +64,15 @@ const ProfileNFTContainer = ({
         }
 
         setMessage("Approving transaction...");
+
+        const allowance = await ERC20_Contract.allowance(accounts[0], contractAddress);
+
+        if (allowance.lt(formattedPrice)) {
+            setMessage("Approving transaction...");
+            const approveTx = await ERC20_Contract.connect(signer).approve(contractAddress, formattedPrice);
+            await approveTx.wait();
+        }
+
 
         // Call the smart contract to list the NFT
         const transaction = await contract.listNFT(nftID, formattedPrice,);

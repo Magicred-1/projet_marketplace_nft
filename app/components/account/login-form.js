@@ -15,7 +15,6 @@ const LoginForm = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                action: "login", // Added action "login" to specify login operation on the server-side
                 username: username,
                 password: password,
             }),
@@ -27,6 +26,7 @@ const LoginForm = () => {
                 localStorage.setItem("user", JSON.stringify({
                     userID: data.foundMember.insertedId,
                     username: data.foundMember.username,
+                    password: data.foundMember.encryptPassword,
                     walletAddress: data.foundMember.walletAddress,
                     created: data.foundMember.created,
                 }));
