@@ -5,7 +5,7 @@ import { abi } from "../../abi/abi.json";
 
 const NTFsContainer = () => {
   const contractAbi = abi;
-  const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
+  const contractAddress = "0x19B8929ea6091baaD813cBe670fac4496292747F";
   const [nftDatas, setNFTDatas] = useState([]);
 
   useEffect(() => {

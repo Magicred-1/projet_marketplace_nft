@@ -14,7 +14,7 @@ const ProfileNFTContainer = ({
     const contractAddress = address;
     const contractAbi = abi;
 
-    const ERC20ContractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
+    const ERC20ContractAddress = "0x19B8929ea6091baaD813cBe670fac4496292747F";
     const ERC20_ABI = ERC20Abi;
 
     const [listedState, setListedState] = useState(nftListed);
@@ -45,7 +45,7 @@ const ProfileNFTContainer = ({
 
         console.log(nftID);
 
-        const formattedPrice = ethers.utils.parseEther(price.toString());
+        const formattedPrice = utils.parseEther(price.toString());
 
         console.log(formattedPrice);
 

@@ -15,23 +15,24 @@ const LoginForm = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                action: "login", // Added action "login" to specify login operation on the server-side
                 username: username,
                 password: password,
             }),
         })
         .then((res) => res.json())
         .then((data) => {
-            if (res.status === 200) {
+            if (data.foundMember) {
+                // Login successful, save user data in localStorage and redirect to the marketplace
                 localStorage.setItem("user", JSON.stringify({
                     userID: data.foundMember.insertedId,
                     username: data.foundMember.username,
-                    password: data.foundMember.encryptPassword,
                     walletAddress: data.foundMember.walletAddress,
                     created: data.foundMember.created,
                 }));
                 Router.push("/marketplace");
             } else {
-                setError(data.message);
+                setError(data.message || "Login failed. Please check your credentials.");
             }
         })
         .catch((error) => {

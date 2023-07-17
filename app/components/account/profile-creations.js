@@ -68,6 +68,7 @@ const ProfileCreations = ({abi, address}) => {
                 className="relative w-full max-w-[20rem] p-4 shadow-md"
                 >
                 <ProfileNFTContainer
+                    key={index}
                     nftID={creation.tokenId.toString()}
                     nftName={creation.name}
                     nftDescription={creation.description}

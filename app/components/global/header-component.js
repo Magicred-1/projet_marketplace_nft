@@ -77,7 +77,7 @@ useEffect(() => {
             className="cursor-pointer py-1 px-2 bg-red-500 font-ttoctosquares-regular rounded-xl text-white"
             onClick={() => {
               localStorage.removeItem("user");
-              Router.push("/marketplace");
+              window.location.href = "/marketplace";
             }}
           >
             SIGN OUT

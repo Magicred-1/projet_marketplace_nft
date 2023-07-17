@@ -18,7 +18,7 @@ const BuyPage = () => {
     const [message, setMessage] = useState("");
     const [nftImageState, setNftImageState] = useState("");
 
-    const contractAddress = "0x9Af74716f988eD23d23D273Fa6eBC787e2E9D549";
+    const contractAddress = "0x19B8929ea6091baaD813cBe670fac4496292747F";
     const contractAbi = abi;
 
     const ERC20ContractAddress = "0xe195a2dD5b76ad462ad6b6801d92ddf2811B9245"

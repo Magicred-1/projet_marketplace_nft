@@ -159,6 +159,7 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         require(nft.listed, "NFT not listed for sale");
 
         address seller = ownerOf(tokenId);
+        require(seller != msg.sender, "Unauthorized buyer");
         uint256 tokenPrice = nft.price;
 
         uint256 feeAmount = (tokenPrice * feePercentage) / 100;
@@ -174,10 +175,13 @@ contract DigitalDelirium is ERC721URIStorage, Ownable {
         emit NFTSold(tokenId, msg.sender, tokenPrice);
     }
 
-    function bidNFT(uint256 tokenId, uint256 bidAmount) external payable {
+    function bidNFT(uint256 tokenId, uint256 bidAmount) external {
         require(_exists(tokenId), "NFT does not exist");
         NFT storage nft = _nfts[tokenId];
         require(nft.listed, "NFT not listed for auction");
+        address seller = ownerOf(tokenId);
+
+        require(seller != msg.sender, "Unauthorized bidder");
 
         Auction storage auction = _auctions[tokenId];
         require(block.timestamp <= auction.endTime, "Auction has ended");
