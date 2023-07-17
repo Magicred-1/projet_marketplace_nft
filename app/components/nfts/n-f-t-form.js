@@ -54,24 +54,16 @@ const NFTForm = () => {
     try {
       const imageUploadResult = await ipfs.add(file);
 
-      // // we verify that the image hasn't been uploaded before
-      // // if it has, we return a error
-      // if (imageUploadResult.path) {
-      //   const imageHash = imageUploadResult.path.split('/')[2];
-      //   const imageURI = `https://ipfs.io/ipfs/${imageHash}`;
-      //   const imageExists = await ipfs.pin.ls(imageURI);
-
-      //   if (imageExists.length > 0) {
-      //     setError('Image has already been uploaded to IPFS.');
-      //     throw new Error('Image has already been uploaded to IPFS.');
-      //   }
-      // }
-
       const metadataURI = {
         name,
         description,
         image: `https://ipfs.io/ipfs/${imageUploadResult.cid.toString()}`,
-        price
+        attributes: [
+          {
+            trait_type: 'Price',
+            initial_value: `${price} DDT`
+          },
+        ],
       };
 
       const metadataUploadResult = await ipfs.add(JSON.stringify(metadataURI));

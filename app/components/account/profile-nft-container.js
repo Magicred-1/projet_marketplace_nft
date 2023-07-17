@@ -159,6 +159,7 @@ const ProfileNFTContainer = ({
             contractAddress,
             formattedPrice
         );
+
         await approveTx.wait();
         }
 
@@ -170,8 +171,12 @@ const ProfileNFTContainer = ({
             accounts[0]
         );
 
+        setMessage("Waiting for transaction to finish...");
+
         // Wait for the transaction to finish
         await transaction.wait();
+
+        setMessage(`NFT #${nftID} successfully into Auction!`);
 
         setListedState(true);
         } catch (error) {

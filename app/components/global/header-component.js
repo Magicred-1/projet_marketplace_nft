@@ -21,7 +21,7 @@ const getDDTBalance = async () => {
 
     // Connect to the smart contract
     const contract = new ethers.Contract(
-        "0xE85Ddd2a9D7396b8475124b35f8CdFc6Fbe2A585",
+        "0xe195a2dD5b76ad462ad6b6801d92ddf2811B9245",
         abi,
         provider.getSigner()
     );
