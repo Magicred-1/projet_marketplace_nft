@@ -60,8 +60,12 @@ const NFTForm = () => {
         image: `https://ipfs.io/ipfs/${imageUploadResult.cid.toString()}`,
         attributes: [
           {
-            trait_type: 'Price',
-            initial_value: `${price} DDT`
+            trait_type: 'Initial Price',
+            value: `${price} DDT`
+          },
+          {
+            trait_type: 'Legendary',
+            value: `Yes`
           },
         ],
       };
